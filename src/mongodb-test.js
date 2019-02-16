@@ -14,7 +14,7 @@ const flags = {
 const mongoose = require('mongoose');
 
 // In dev mode, connect to the test DB
-if (DEBUG) {
+if (flags.DEBUG) {
     const db = mongoose.connect('mongodb://localhost/test');
 } 
 else {
@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     moodIDs: [{ id: Number }]
 });
+
 
 // TODO determine representation each of these- what is a "mood"?
 const moodSchema = new mongoose.Schema({
@@ -50,7 +51,23 @@ app.get('/users/:userId', (req, res) => {
     res.send(req.params);
 });
 
-app.post('/mkuser', (req, res) => {
+app.get('/mkuser/:firstName', (req, res) => {
+
+    User newUser = new User({
+        firstName: req.params.firstName,
+        lastName: "default",
+        email: "default",
+        moodIDs: []
+    });
+    res.send(newUser);
+    console.log("User created");
+
+});
+
+app.get('/getuser/:firstName', (req, res) => {
+
+    userResult = User.find(req.params);
+    res.send('Under construction');
 
 });
 
