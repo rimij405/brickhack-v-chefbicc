@@ -12,7 +12,8 @@ class SignUp extends Component {
       goBack: false,
       email: '',
       password: '',
-      submitted: false
+      submitted: false,
+      username: ''
     }
 
     this.handlePassChange = this.handlePassChange.bind(this);
@@ -38,8 +39,9 @@ class SignUp extends Component {
     }
   }
   handleSubmit(formSubmit){
+    UserProfile.setName(this.state.email);
     this.setState({
-      ubmitted: true
+      submitted: true
     })
  }
 
@@ -48,8 +50,7 @@ class SignUp extends Component {
       return(<Open />);
     }
     else if (this.state.submitted === true) {
-      return(<Home email={this.state.email}
-      password={this.state.password} />);
+      return(<Home email={this.state.email} />);
     }
     
     else{

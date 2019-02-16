@@ -4,8 +4,20 @@ import '../App.css';
 
 
 class Home extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      email: ''
+    }
+
+  }
   render() {
-    return(<h1>Home</h1>);
+    return(
+      <div className="main">
+        <h1>Welcome! {this.state.email}</h1>
+
+      </div>
+    );
   }
 }
 

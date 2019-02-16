@@ -44,7 +44,7 @@ class Login extends Component {
             <input type="password" name="password" onChange={e => this.setState({password: e.target.value})}/>
             <button type="submit">Submit</button>
           </form>
-          <button onClick={this.setState({goBack : true})}>Back</button>
+          <button onClick={e => this.setState({goBack : true})}>Back</button>
         </div>
       );
     }
