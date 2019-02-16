@@ -43,3 +43,9 @@
   color: red;
   display: none;
 }
+
+body{
+  background-image: linear-gradient(#2e2eb8, #3d0099);
+  background-repeat: no-repeat;
+  height: 100vw;
+}
