@@ -12,6 +12,7 @@ class Daily extends Component {
       cups: '',
       caffeine: false
     }
+
     this.setState = this.setState.bind(this);
   }
 
@@ -25,6 +26,7 @@ class Daily extends Component {
   }
 
   checkCaffeine(){
+    //call to server to check if person wants to monitor caffeine intake
     if(this.state.caffeine){
       return(<Caffeine cupsChanged={this.setState}/>);
     }
@@ -34,8 +36,10 @@ class Daily extends Component {
     return(
       <div className="main">
         <h1>How are you feeling today?</h1>
-        <button>Happy</button>
-        <button>Sad</button>
+        <div>
+          <button>Happy</button>
+          <button>Sad</button>
+        </div>
 
         {this.checkCaffeine()}
 

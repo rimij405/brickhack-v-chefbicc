@@ -40,9 +40,12 @@ class Login extends Component {
             <input type="text" name="username" onChange={e => this.setState({username: e.target.value})}/>
             <h3>Password</h3>
             <input type="password" name="password" onChange={e => this.setState({password: e.target.value})}/>
-            <button type="submit">Submit</button>
+            <br />
+            <div>
+              <button type="submit">Submit</button>
+              <button onClick={e => this.setState({goBack : true})}>Back</button>
+            </div>
           </form>
-          <button onClick={e => this.setState({goBack : true})}>Back</button>
         </div>
       );
     }
