@@ -2,13 +2,15 @@ const express = require('express');
 const app = express();
 
 // Check port and debug mode values.
+const environment = process.env.NODE_ENV.trim() || 'dev';
+
 const flags = {
-    DEBUG: (process.env.NODE_ENV.trim() === "dev"),
+    DEBUG: (environment === "dev"),
     PORT: (process.env.PORT || 3001)
 };
 
 app.get('/', (req, res) => {
-    let resBody = "Hello world!";
+    let resBody = "Hello mongodb!";
     if(flags.DEBUG) {
         resBody += " Debug mode.";        
     }

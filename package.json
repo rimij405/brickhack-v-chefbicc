@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
-    "serve": "nodemon src/server.js localhost 8080",
+    "dev-env": "cross-env NODE_ENV=\"dev\"",
+    "dev-port": "cross-env PORT=\"8080\"",
+    "dev-serve": "npm run dev-env && npm run dev-port && nodemon src/server.js",
+    "mongo-test": "npm run dev-env && npm run dev-port && nodemon src/mongodb-test.js",
     "build": "exit 1"
   },
   "repository": {
@@ -29,6 +32,7 @@
     "mongoose": "^5.4.13"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "nodemon": "^1.18.10"
   }
 }
