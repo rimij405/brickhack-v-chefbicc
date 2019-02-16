@@ -1,15 +1,20 @@
 {
   "name": "bhv-moodswing",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.15.1",
+    "npm": "6.4.1"
+  },
   "description": "Mood tracking application.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete.\"",
     "start": "node src/server.js",
     "dev-env": "cross-env-shell NODE_ENV=dev",
     "dev-port": "cross-env-shell PORT=8080",
-    "dev-serve": "cross-env-shell npm run dev-env npm run dev-port nodemon src/server.js localhost $PORT",
-    "mongo-test": "cross-env-shell npm run dev-env npm run dev-port nodemon src/mongodb-test.js localhost $PORT",
+    "dev-serve": "cross-env-shell npm run dev-env npm run dev-port nodemon --watch ./src ./src/server.js localhost $PORT",
+    "mongo-test": "cross-env-shell npm run dev-env npm run dev-port nodemon --watch ./src ./src/mongodb-test.js localhost $PORT",
     "build": "exit 1"
   },
   "repository": {
@@ -33,6 +38,11 @@
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0",
     "nodemon": "^1.18.10"
   }
 }
