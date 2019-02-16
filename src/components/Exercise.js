@@ -7,8 +7,8 @@ class Exercise extends Component {
 
     render(){
         return(
-          <div>
-            <p>How many Minutes of Exercise?</p>
+          <div className="main">
+            <h1>How many Minutes of Exercise?</h1>
             <input id="minutesOfExercise" type="text" onChange={e => this.props.minutesChanged({minutes: e.target.value})}/>
           </div>
         )
