@@ -13,8 +13,8 @@
     "start": "node src/server.js",
     "dev-env": "cross-env-shell NODE_ENV=dev",
     "dev-port": "cross-env-shell PORT=8080",
-    "dev-serve": "cross-env-shell npm run dev-env npm run dev-port nodemon --watch ./src ./src/server.js localhost $PORT",
-    "mongo-test": "cross-env-shell npm run dev-env npm run dev-port nodemon --watch ./src ./src/mongodb-test.js localhost $PORT",
+    "dev-serve": "cross-env-shell npm run dev-env npm run dev-port nodemon ./src/server.js localhost $PORT",
+    "mongo-test": "cross-env-shell npm run dev-env npm run dev-port nodemon ./src/mongodb-test.js localhost $PORT",
     "build": "exit 1"
   },
   "repository": {
