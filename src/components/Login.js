@@ -1,29 +1,11 @@
 import React, { Component } from 'react';
-import UserProfile from '../UserProfile';
+import UserProfile from '../UserProfile.js';
+import '../App.css';
 
 
 class Login extends Component {
-  constructor() {
-    super();
-    this.state={
-      switch: ''
-    }
-  }
-
   render() {
-    return(
-      <div className="main">
-      <h1>Login</h1>
-      <button onClick={e => this.setState({switch:'login'})}>
-        Login
-      </button>
-      <button onClick={e => this.setState({switch:'signup'})}>
-        Sign Up
-      </button>
-
-      </div>
-    
-    );
+    return(<h1>Login</h1>);
   }
 }
 

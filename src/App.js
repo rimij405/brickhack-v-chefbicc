@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UserProfile from '../src/UserProfile.js';
-import Login from '../src/components/Login.js';
+import Open from '../src/components/Open.js';
 import Home from '../src/components/Home.js';
 import '../src/App.css';
 
@@ -13,7 +13,7 @@ class App extends Component {
       );
     }else{
       return (
-        <Login />
+        <Open />
       );
     }
   }
