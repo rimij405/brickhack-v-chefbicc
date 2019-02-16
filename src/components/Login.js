@@ -19,6 +19,10 @@ class Login extends Component {
 
   handleFormSubmit(){
     //check to see if user and pass are valid combo on server
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => console.log(json))
+
     this.setState({
       submitted: true
     });
@@ -40,7 +44,7 @@ class Login extends Component {
             <input type="password" name="password" onChange={e => this.setState({password: e.target.value})}/>
             <button type="submit">Submit</button>
           </form>
-          <button onClick={e => this.setState({goBack : true})}>Back</button>
+          <button onClick={this.setState({goBack : true})}>Back</button>
         </div>
       );
     }
