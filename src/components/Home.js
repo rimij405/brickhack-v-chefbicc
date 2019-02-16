@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserProfile from '../UserProfile.js';
+import Daily from '../components/Daily.js';
 import '../App.css';
 
 
@@ -15,7 +16,7 @@ class Home extends Component {
     return(
       <div className="main">
         <h1>Welcome! {UserProfile.getName()}</h1>
-
+        <Daily />
       </div>
     );
   }

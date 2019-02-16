@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import UserProfile from '../UserProfile.js';
+import Caffeine from '../components/Caffeine.js';
 import '../App.css';
 
 
-class Home extends Component {
-  constructor(){
-    super();
+class Daily extends Component {
+  constructor(props){
+    super(props);
     this.state = {
-      username: this.props.username
+      username: this.props.username,
+      cups: '',
+      caffeine: false
+    }
+    this.setState = this.setState.bind(this);
+  }
+
+  displayOptions(){
+    if(document.getElementById('options').style.display === 'block') {
+      document.getElementById('options').style.display = 'none';
+    }
+    else{
+      document.getElementById('options').style.display = 'block';
     }
   }
 
-
+  checkCaffeine(){
+    if(this.state.caffeine){
+      return(<Caffeine cupsChanged={this.setState}/>);
+    }
+  }
 
   render() {
     return(
@@ -20,9 +37,15 @@ class Home extends Component {
         <button>Happy</button>
         <button>Sad</button>
 
+        {this.checkCaffeine()}
+
+        <button onClick={e => this.displayOptions()}>Add More</button>
+        <div className="options" id="options">
+          <button onClick={e => this.setState({caffeine: true})}>Caffeine</button>
+        </div>
       </div>
     );
   }
 }
 
-export default Home;
+export default Daily;

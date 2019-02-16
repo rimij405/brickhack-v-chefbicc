@@ -50,3 +50,7 @@ body{
   background-repeat: no-repeat;
   height: 100vh;
 }
+
+.options{
+  display:none;
+}
