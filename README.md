@@ -7,4 +7,6 @@ Server feature.
 
 ## TODO ##
 
-- [ ] Hello world.
+- [x] Hello world.
+- [ ] Create User model.
+- [ ] Create MoodItem model.
