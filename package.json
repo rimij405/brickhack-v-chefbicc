@@ -1,0 +1,29 @@
+{
+  "name": "bhv-moodswing",
+  "version": "1.0.0",
+  "description": "Mood tracking application.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rimij405/brickhack-v-chefbicc.git"
+  },
+  "keywords": [
+    "mood",
+    "tracker",
+    "swing"
+  ],
+  "author": "Chef BICC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rimij405/brickhack-v-chefbicc/issues"
+  },
+  "homepage": "https://github.com/rimij405/brickhack-v-chefbicc#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
