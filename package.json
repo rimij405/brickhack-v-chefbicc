@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/rimij405/brickhack-v-chefbicc#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mongoose": "^5.4.13"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
