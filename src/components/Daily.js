@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import UserProfile from '../UserProfile.js';
 import Caffeine from '../components/Caffeine.js';
+import Meals from '../components/Meals';
+import Sleep from '../components/Sleep';
+import Exercise from '../components/Exercise';
+
 import '../App.css';
 
 
@@ -10,7 +14,10 @@ class Daily extends Component {
     this.state = {
       username: this.props.username,
       cups: '',
-      caffeine: false
+      caffeine: false,
+      exercise: false,
+      sleep: false,
+      meals: false
     }
     this.setState = this.setState.bind(this);
   }
@@ -30,6 +37,24 @@ class Daily extends Component {
     }
   }
 
+  checkExercise() {
+    if (this.state.exercise) {
+      return(<Exercise minutesChanged={this.setState}/>);
+    }
+  }
+
+  checkSleep() {
+    if (this.state.sleep) {
+      return(<Sleep sleepChanged={this.setState}/>);
+    }
+  }
+
+  checkMeals() {
+    if (this.state.meals) {
+      return(<Meals mealsChanged={this.setState} />);
+    }
+  }
+
   render() {
     return(
       <div className="main">
@@ -38,10 +63,16 @@ class Daily extends Component {
         <button>Sad</button>
 
         {this.checkCaffeine()}
+        {this.checkExercise()}
+        {this.checkMeals()}
+        {this.checkSleep()}
 
         <button onClick={e => this.displayOptions()}>Add More</button>
         <div className="options" id="options">
           <button onClick={e => this.setState({caffeine: true})}>Caffeine</button>
+          <button onClick={e => this.setState({exercise: true})}>Exercise</button>
+          <button onClick={e => this.setState({sleep: true})}>Sleep</button>
+          <button onClick={e => this.setState({meals: true})}>Meals</button>
         </div>
       </div>
     );
