@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "node src/server.js",
+    "serve": "nodemon src/server.js localhost 8080",
     "build": "exit 1"
   },
   "repository": {
@@ -25,5 +26,8 @@
   "homepage": "https://github.com/rimij405/brickhack-v-chefbicc#readme",
   "dependencies": {
     "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }
