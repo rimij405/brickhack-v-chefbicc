@@ -24,6 +24,17 @@ class SignUp extends Component {
     }
   }
 
+  handleEmail(value) {
+    var valid = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(valid.test(value)) {
+      this.setState({email: value});
+      document.getElementById('emailError').style.display = 'none';
+    }
+    else {
+      document.getElementById('emailError').style.display = 'block';
+    }
+  }
+
 
 
 
@@ -37,7 +48,8 @@ class SignUp extends Component {
           <form>
             <h1>SignUp</h1>
             <h3>Email Address</h3>
-            <input type="text" name="email" onChange={e => this.setState({email: e.target.value })}/>
+            <div className="error" id="emailError">Please enter a valid email</div>
+            <input type="text" name="email" onChange={e => this.handleEmail(e.target.value)}/>
             <h3>Password</h3>
             <input type="password" name="password" onChange={e => this.setState({password: e.target.value })}/>
             <h3>Re-Enter Password</h3>
