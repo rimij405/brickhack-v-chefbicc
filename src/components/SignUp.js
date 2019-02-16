@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserProfile from '../UserProfile';
 import Open from '../components/Open.js';
+import Home from '../components/Home.js';
 
 
 class SignUp extends Component {
@@ -10,10 +11,12 @@ class SignUp extends Component {
     this.state = {
       goBack: false,
       email: '',
-      password: ''
+      password: '',
+      submitted: false
     }
 
     this.handlePassChange = this.handlePassChange.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
   }
 
   handlePassChange(value){
@@ -34,18 +37,25 @@ class SignUp extends Component {
       document.getElementById('emailError').style.display = 'block';
     }
   }
-
-
-
-
+  handleSubmit(formSubmit){
+    this.setState({
+      ubmitted: true
+    })
+ }
 
   render() {
     if(this.state.goBack === true){
       return(<Open />);
-    }else{
+    }
+    else if (this.state.submitted === true) {
+      return(<Home email={this.state.email}
+      password={this.state.password} />);
+    }
+    
+    else{
       return(
         <div className="main">
-          <form>
+          <form onSubmit={this.handleSubmit} className="main">
             <h1>SignUp</h1>
             <h3>Email Address</h3>
             <div className="error" id="emailError">Please enter a valid email</div>
@@ -55,8 +65,10 @@ class SignUp extends Component {
             <h3>Re-Enter Password</h3>
             <div className="error" id="passError">Passwords Not the Same</div>
             <input type="password" name="password" onChange={e => this.handlePassChange(e.target.value)} />
+            <button type="submit">Sign Up</button>
           </form>
           <button onClick={e => this.setState({goBack: true})}>Back</button>
+          
         </div>
 
       );
