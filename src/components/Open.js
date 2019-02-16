@@ -23,7 +23,7 @@ class Open extends Component {
       return(
 
         <div className="main">
-        <h1>Login</h1>
+        <h1>Are You a Member?</h1>
         <button onClick={e => this.setState({switch:'login'})}>
           Login
         </button>

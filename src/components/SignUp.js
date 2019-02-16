@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserProfile from '../UserProfile';
+import Open from '../components/Open.js';
 
 
 class SignUp extends Component {
@@ -7,6 +8,7 @@ class SignUp extends Component {
   constructor(){
     super();
     this.state = {
+      goBack: false,
       email: '',
       password: ''
     }
@@ -15,17 +17,23 @@ class SignUp extends Component {
 
 
   render() {
-    return(
-      <div className="main">
-        <h1>SignUp</h1>
-        <p>
+    if(this.state.goBack === true){
+      return(<Open />);
+    }else{
+      return(
+        <div className="main">
+          <form>
+            <h1>SignUp</h1>
 
-        </p>
-        <input type="text" name="email" onChange={e => this.setState({email: e.target.value })}/>
-        <input type="text" name="password" onChange={e => this.setState({email: e.target.value })}/>
-      </div>
+            <input type="text" name="email" onChange={e => this.setState({email: e.target.value })}/>
+            <input type="text" name="password" onChange={e => this.setState({email: e.target.value })}/>
+          </form>
+          <button onClick={e => this.setState({goBack: true})}>Back</button>
+        </div>
 
-    );
+      );
+    }
+
   }
 }
 
