@@ -69,7 +69,7 @@ class SignUp extends Component {
       return(<Open />);
     }
     else if (this.state.submitted === true) {
-      return(<Home email={this.state.email} />);
+      return(<Home username={this.state.username} />);
     }
     
     else{
