@@ -45,7 +45,8 @@
 }
 
 body{
-  background-image: linear-gradient(#2e2eb8, #3d0099);
+  color: white;
+  background-image: linear-gradient(#002699, #290066);
   background-repeat: no-repeat;
-  height: 100vw;
+  height: 100vh;
 }
