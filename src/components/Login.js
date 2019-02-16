@@ -19,9 +19,7 @@ class Login extends Component {
 
   handleFormSubmit(){
     //check to see if user and pass are valid combo on server
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(json => console.log(json))
+    UserProfile.setName(this.state.username);
 
     this.setState({
       submitted: true
@@ -32,7 +30,7 @@ class Login extends Component {
     if(this.state.goBack === true){
       return(<Open />);
     }else if(this.state.submitted === true){
-      return(<Home />);
+      return(<Home username={this.props.username}/>);
     }else{
       return(
         <div className="main">

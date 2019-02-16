@@ -66,7 +66,7 @@ class SignUp extends Component {
             <h3>Re-Enter Password</h3>
             <div className="error" id="passError">Passwords Not the Same</div>
             <input type="password" name="password" onChange={e => this.handlePassChange(e.target.value)} />
-            <button type="submit">Sign Up</button>
+            <button type="submit" >Sign Up</button>
           </form>
           <button onClick={e => this.setState({goBack: true})}>Back</button>
           

@@ -4,17 +4,21 @@ import '../App.css';
 
 
 class Home extends Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
       username: this.props.username
     }
-
   }
+
+
+
   render() {
     return(
       <div className="main">
-        <h1>Welcome! {UserProfile.getName()}</h1>
+        <h1>How are you feeling today?</h1>
+        <button>Happy</button>
+        <button>Sad</button>
 
       </div>
     );
