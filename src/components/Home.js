@@ -4,6 +4,7 @@ import Daily from '../components/Daily.js';
 import '../App.css';
 import User from './User';
 import Day from './Day';
+import Visual from './Visual.js';
 
 
 class Home extends Component {
@@ -88,6 +89,10 @@ class Home extends Component {
     }
   }
 
+  createTable(){
+
+  }
+
   render() {
     var body = [{
       date : "02/16/2019",
@@ -109,6 +114,13 @@ class Home extends Component {
     }
     ];
 
+    var data = [
+      ["Date", "Caffeine"],
+      ['02/16/2019', 8 ],
+      ['02/17/2019', 8 ],
+      ['02/18/2019', 16]
+    ];
+
     return(
       <div className="home">
         <User username={this.state.username} />
@@ -117,6 +129,8 @@ class Home extends Component {
           {this.displayHead()}
           {this.createDays(body)}
         </div>
+
+        <Visual data={data}/>
 
 
 
