@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import UserProfile from '../UserProfile';
 import Open from '../components/Open.js';
 import Home from '../components/Home.js';
-import axios from 'axios';
 import {checkUsername} from '../actions/getActions';
 import {createUser} from '../actions/getActions';
 
