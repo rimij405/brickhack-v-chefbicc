@@ -58,8 +58,8 @@ const MoodController = (flags) => {
     };
 
     // Triple-if!
-    if (req.body.cupsOfCoffee) {
-      moodData.cupsOfCoffee = req.body.coffee;
+    if (req.body.ouncesOfCoffee) {
+      moodData.ouncesOfCoffee = req.body.coffee;
     }
     if (req.body.hoursOfSleep) {
       moodData.hoursOfSleep = req.body.hoursOfSleep;
@@ -193,7 +193,7 @@ const MoodController = (flags) => {
 
       return res.status(200).json({
         api: flags.API_METADATA,
-        models: docs,
+        moods: docs,
       });
     });
   };

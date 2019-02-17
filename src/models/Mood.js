@@ -49,19 +49,35 @@ const MoodSchema = new mongoose.Schema({
 
 // Helper methods.
 
-MoodSchema.statics.toAPI = doc => ({
-  _id: doc._id,
-  owner: doc.owner,
-  mood: doc.mood,
-  lastUpdated: doc.lastUpdated,
-});
+MoodSchema.statics.toAPI = doc => {
+  const apiDoc = {
+    _id: doc._id,
+    owner: doc.owner,
+    mood: doc.mood,
+    lastUpdated: doc.lastUpdated,
+  }
+
+  if(doc.ouncesOfCoffee) {
+   apiDoc.ouncesOfCoffee = doc.ouncesOfCoffee;
+  }
+
+  if(doc.hoursOfSleep) {
+   apiDoc.hoursOfSleep = doc.hoursOfSleep;
+  }
+  
+  if(doc.hoursOfExercise) {
+    apiDoc.hoursOfExercise = doc.hoursOfExercise;
+   }
+
+  return apiDoc;
+};
 
 MoodSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
 
-  return MoodModel.find(search).select('_id mood lastUpdated').exec(callback);
+  return MoodModel.find(search).select('_id mood ouncesOfCoffee hoursOfSleep hoursOfExercise lastUpdated').exec(callback);
 };
 
 MoodSchema.statics.findByIdAndDelete = (moodId, callback) => {
