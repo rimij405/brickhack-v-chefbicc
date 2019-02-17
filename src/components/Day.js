@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
 class Day extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      date: '',
-      mood: '',
-      caffeine: '',
-      exercise: '',
+      date: this.props.date,
+      mood: this.props.mood,
+      caffeine: this.props.caffeine,
+      exercise: this.props.exercise,
       meals: '',
       sleep: ''
     }
@@ -16,7 +16,10 @@ class Day extends Component{
   render(){
     return(
       <div className="main">
-
+        <p>{this.state.date}</p>
+        <p>{this.state.mood}</p>
+        <p>{this.state.caffeine}</p>
+        <p>{this.state.exercise}</p>
       </div>
     );
   }

@@ -4,7 +4,6 @@ import Caffeine from '../components/Caffeine.js';
 import Meals from '../components/Meals';
 import Sleep from '../components/Sleep';
 import Exercise from '../components/Exercise';
-import User from './User.js';
 
 import '../App.css';
 
@@ -21,6 +20,7 @@ class Daily extends Component {
       meals: false
     }
 
+    this.setState = this.setState.bind(this);
     this.checkCaffeine = this.checkCaffeine.bind(this);
     this.checkMeals = this.checkMeals.bind(this);
     this.checkExercise = this.checkExercise.bind(this);
@@ -68,7 +68,7 @@ class Daily extends Component {
     return(
       <div className="main">
 
-        <User username={this.state.username} />
+
         <h1>How are you feeling today?</h1>
         <div>
           <button>Happy</button>
