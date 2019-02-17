@@ -23,13 +23,13 @@ class Login extends Component {
       password: this.state.password
     }
     //check to see if user and pass are valid combo on server
-    /*
-    let response = fetch('', {
+
+    let response = fetch('https://jsonplaceholder.typicode.com/todos/1/posts', {
       method: 'POST',
       body: JSON.stringify(post)
     }).then(function(response){return response.json()});
     console.log(response);
-    */
+
     UserProfile.setName(this.state.username);
 
     this.setState({

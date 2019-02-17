@@ -20,6 +20,7 @@ class SignUp extends Component {
 
     this.handlePassChange = this.handlePassChange.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handlePassChange(value){
@@ -44,6 +45,7 @@ class SignUp extends Component {
       return false;
     }
   }
+
   handleSubmit(formSubmit){
     let post = {
       first_name: this.state.first_name,
@@ -53,10 +55,11 @@ class SignUp extends Component {
       password: this.state.password
     }
     //create on server
-    fetch('', {
+    let response = fetch('https://jsonplaceholder.typicode.com/todos/1/posts', {
       method: 'POST',
-      body: JSON.stringify()
-    })
+      body: JSON.stringify(post)
+    }).then(function(response){return response});
+    console.log(response);
     UserProfile.setName(this.state.email);
     if (this.handleEmail(this.state.email) && this.handleUsername(this.state.username) && this.handlePassChange(this.state.password)) {
       this.setState({
