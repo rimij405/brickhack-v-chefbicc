@@ -15,7 +15,7 @@ class Login extends Component {
   };
   constructor(props){
     super(props);
-    const {cookies} = props;
+    const { cookies } = props;
     this.state = {
       goBack : false,
       username : '',
@@ -61,7 +61,7 @@ class Login extends Component {
           submitted: true
         });
         console.log(payload.user._id);
-        cookies.set('id', payload.user._id, {path: '/'});
+        _this.props.cookies.set('id', payload.user._id, {path: '/'});
         UserProfile.setId(payload.user._id);
         console.log(UserProfile.getId());
       } 
