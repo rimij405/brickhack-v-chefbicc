@@ -27,15 +27,7 @@ const UserController = (flags) => {
   // Need username, firstname, lastname, email, pw
   const createUser = (req, res) => {
 
-    // Cast to string to avoid security issues.
-    const request = { body: {} };
-    request.body.username = `${req.body.username}`;
-    request.body.firstName = `${req.body.firstName}`;
-    request.body.lastName = `${req.body.lastName}`;
-    request.body.email = `${req.body.email}`;    
-    request.body.password = `${req.body.password}`;
-
-    const problem = getMissingCreateUserContent(flags, request.body);
+    const problem = getMissingCreateUserContent(flags, req.body);
   
     // Handle issues with missing information
     if (problem) {
@@ -53,6 +45,14 @@ const UserController = (flags) => {
         },
       });
     }
+
+    // Cast to string to avoid security issues.
+    const request = { body: {} };
+    request.body.username = `${req.body.username}`;
+    request.body.firstName = `${req.body.firstName}`;
+    request.body.lastName = `${req.body.lastName}`;
+    request.body.email = `${req.body.email}`;    
+    request.body.password = `${req.body.password}`;
 
     return User.UserModel.generateHash(
       request.body.password,
