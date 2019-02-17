@@ -17,10 +17,22 @@ const MoodSchema = new mongoose.Schema({
     required: true,
     unique: true
   }, */
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    unique: false,
+  },
   mood: {
     type: Number,
     required: true,
     unique: false,
+  },
+  lastUpdated: {
+    type: Date,
+    default: Date.now,
   },
   createdDate: {
     type: Date,

@@ -10,8 +10,16 @@ const flags = {
   PORT: (process.env.PORT || process.env.NODE_PORT || 3001),
   MONGODB_URI: (process.env.MONGODB_URI || 'mongodb://localhost/moodswing'),
   ERRORS: {
-      noRootQuery: "E001"
-  }
+      noRootQuery: "E001",
+      missingMood: "E002",
+      missingUser: "E003",
+      moodAlreadyExists: "E004",
+      userAlreadyExists: "E005",
+  },
+  API_METADATA: {
+      application: "MS",
+      version: (process.env.API_VERSION || 1),
+  },
 };
 
 // Set up routes.
