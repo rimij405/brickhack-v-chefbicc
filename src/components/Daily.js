@@ -89,7 +89,11 @@ class Daily extends Component {
         <h1>How are you feeling today?</h1>
         <div>
           <button id="happy" onClick={e => this.setMood("happy")}>Happy</button>
+          <button id="neutral" onClick={e => this.setMood("neutral")}>Neutral</button> 
+          <button id="tired" onClick={e => this.setMood("tired")}>Tired</button>  
+          <button id="annoyed" onClick={e => this.setMood("annoyed")}>Annoyed</button>
           <button id="sad" onClick={e => this.setMood("sad")}>Sad</button>
+          <button id="angry" onClick={e => this.setMood("angry")}>Angry</button>
         </div>
 
         {this.checkCaffeine()}
