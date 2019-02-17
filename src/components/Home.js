@@ -12,6 +12,18 @@ class Home extends Component {
 
   constructor(props){
     super(props);
+
+    var body = [
+      {
+        username : 'micheal',
+        mood : 'true',
+        caffeine : 'true',
+        exercise : 'true',
+        sleep : 'false',
+        meals : 'false'
+      }
+    ]
+
     this.state = {
       username: this.props.username,
       daily: UserProfile.getDaily(),
@@ -19,6 +31,8 @@ class Home extends Component {
       mood: '',
       caffeine: '',
       exercise: '',
+      sleep: '',
+      meals: '',
       stats: false
     }
 
@@ -91,6 +105,9 @@ class Home extends Component {
         Days.push(<Day date={date} mood={mood} caffeine={caffeine} exercise={exercise}/>);
 
       }
+      if(Days.length === 0){
+        return(<h2>Sorry! You have no entries yet.</h2>)
+      }
       return Days;
     }
   }
@@ -108,19 +125,22 @@ class Home extends Component {
       date : "02/16/2019",
       mood : "happy",
       caffeine : "8 oz",
-      exercise : "30 - 60"
+      exercise : "30 - 60",
+      sleep: "10"
     },
     {
       date : "02/17/2019",
       mood : "sad",
       caffeine : "8 oz",
-      exercise : "30 - 60"
+      exercise : "30 - 60",
+      sleep: "4"
     },
     {
       date : "02/18/2019",
       mood : "sad",
       caffeine : "16 oz",
-      exercise : "0"
+      exercise : "0",
+      sleep : "2"
     }
     ];
 

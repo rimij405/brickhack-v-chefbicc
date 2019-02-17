@@ -48,6 +48,9 @@ class Statistics extends Component {
     }
 
     console.log(Data);
+    if(Data.length === 0){
+      return null;
+    }
 
     return(<Visual data={Data} title={value} />);
 
@@ -58,6 +61,10 @@ class Statistics extends Component {
     let Data = [];
     let happyCount = 0;
     let sadCount = 0;
+    let tiredCount = 0;
+    let annoyedCount = 0;
+    let neutralCount = 0;
+    let angryCount = 0;
     Data.push(["Dates", value.charAt(0).toUpperCase() + value.substring(1, value.length)]);
     let length = body.length;
     for (let i = 0; i < length; i++) {
@@ -69,18 +76,51 @@ class Statistics extends Component {
         values[0] = values[0].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
         values[1] = values[1].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
 
-        if(values[1] === 'happy'){
-          happyCount ++;
+        switch(values[1]) {
+          case('neutral'):
+            neutralCount++;
+            break;
+
+
+          case('angry'):
+            angryCount++;
+            break;
+
+
+          case('tired'):
+            tiredCount++;
+            break;
+
+
+          case('annoyed'):
+            annoyedCount++;
+            break;
+
+
+          case('sad'):
+            sadCount++;
+            break;
+
+
+          case('happy'):
+            happyCount++;
+            break;
         }
-        if(values[1] === 'sad'){
-          sadCount++;
-        }
+
       }
     }
 
     Data.push(['Happy', happyCount]);
     Data.push(['Sad', sadCount]);
+    Data.push(['Annoyed', annoyedCount]);
+    Data.push(['Tired', tiredCount]);
+    Data.push(['Angry', angryCount]);
+    Data.push(['Neutral', neutralCount]);
+
     console.log(Data);
+    if(Data.length === 0){
+      return null;
+    }
     return(<Visual data={Data} title={value} />);
 
   }
@@ -95,6 +135,7 @@ class Statistics extends Component {
         <h1>Statistics</h1>
         {this.createTable(this.props.body, "caffeine")}
         {this.createTable(this.props.body, "exercise")}
+        {this.createTable(this.props.body, "sleep")}
         {this.createPieChart(this.props.body, "mood")}
         <button onClick={e => this.setState({goBack: true}) }> Go Back </button>
       </div>
