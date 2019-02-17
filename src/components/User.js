@@ -38,10 +38,6 @@ class User extends Component {
   }
 
   render() {
-    if (this.state.clicked === true) {
-      return (<Statistics />);
-    }
-    else {
       return (
         <div className="user">
           <div class="dropdown">
@@ -52,7 +48,7 @@ class User extends Component {
               this.state.showMenu 
               ? (
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="dropdown-item" onClick={e => this.statisticsClicked()}>Statistics</button>
+              <button class="dropdown-item" onClick={e => this.props.setStats(true)}>Statistics</button>
 
             </div>
 
@@ -70,7 +66,6 @@ class User extends Component {
       )
     }
 
-  }
 }
 
 export default User;

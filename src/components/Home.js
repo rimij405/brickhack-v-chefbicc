@@ -5,6 +5,7 @@ import '../App.css';
 import User from './User';
 import Day from './Day';
 import Visual from './Visual.js';
+import Statistics from './Statistics';
 
 
 class Home extends Component {
@@ -17,11 +18,14 @@ class Home extends Component {
       date: '',
       mood: '',
       caffeine: '',
-      exercise: ''
+      exercise: '',
+      stats: false
     }
 
     this.setState = this.setState.bind(this);
     this.setDaily = this.setDaily.bind(this);
+    this.setState = this.setState.bind(this);
+    this.setStats = this.setStats.bind(this);
   }
 
 
@@ -34,6 +38,12 @@ class Home extends Component {
   setDaily(value){
     this.setState({
       daily: value
+    });
+  }
+
+  setStats(value){
+    this.setState({
+      stats: value
     });
   }
 
@@ -89,51 +99,7 @@ class Home extends Component {
     }
   }
 
-  createTable(body, value){
-    var Caffeine = [];
-    var Dates = [];
-    var Data = [];
-    Data.push(["Dates", value.charAt(0).toUpperCase() + value.substring(1, value.length)]);
-    let length = body.length;
-    for (let i = 0; i < length; i++) {
-      let response = JSON.stringify(body[i]);
-      let responses = response.split(",");
-      for (let j = 0; j < responses.length; j++) {
-        let values = responses[j].split(":");
-        console.log(values);
-        values[0] = values[0].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
-        values[1] = values[1].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
 
-        console.log(values[0]);
-        if(values[0] === value){
-          if(values[0] === "caffeine"){
-            values[1] = values[1].replace(" oz", "");
-          }
-          if(values[0] === "mood"){
-            Caffeine.push(values[1]);
-            break;
-          }
-          Caffeine.push(parseInt(values[1]));
-        }
-        if(values[0] === 'date'){
-          Dates.push(values[1]);
-        }
-
-      }
-      console.log(responses);
-
-    }
-
-    for(let i=0;i<Caffeine.length; i++){
-      Data.push([Dates[i], Caffeine[i]]);
-    }
-
-    console.log(Data);
-
-    return(<Visual data={Data} title={value} />);
-
-
-  }
 
   render() {
     var body = [{
@@ -162,23 +128,23 @@ class Home extends Component {
       ['02/17/2019', 8 ],
       ['02/18/2019', 16]
     ];
+    if(this.state.stats === true){
+      return(<Statistics body={body}/>)
+    }else {
+      return (
 
-    return(
-      <div className="home">
-        <User username={this.state.username} />
-        {this.checkDailyForm()}
-        <div className={"dayHolder"}>
-          {this.displayHead()}
-          {this.createDays(body)}
+        <div className="home">
+          <User setStats={this.setStats} username={this.state.username} data={body}/>
+          {this.checkDailyForm()}
+          <div className={"dayHolder"}>
+            {this.displayHead()}
+            {this.createDays(body)}
+          </div>
+
+
         </div>
-
-        {this.createTable(body, "caffeine")}
-        {this.createTable(body, "exercise")}
-        {this.createTable(body, "mood")}
-
-
-      </div>
-    );
+      );
+    }
   }
 }
 
