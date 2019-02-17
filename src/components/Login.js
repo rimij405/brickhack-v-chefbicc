@@ -33,13 +33,11 @@ class Login extends Component {
     
   }
 
-  
-
   checkResponse(value){
     let id;
     value.then(function(result){
-      console.log(result.user._id);
-    });
+      return result.user._id;
+    }).then(function(result){  result});
     console.log(id);
     if(value.ok === true){
       this.setState({
