@@ -84,7 +84,19 @@ UserSchema.statics.findById = (userId, callback) => {
     _id: convertId(userId),
   };
 
-  return UserModel.findOne(search, callback);
+  const projection = {
+    _id: 1,
+    username: 1,
+    email: 1,
+    moods: 1,
+    firstName: 0,
+    lastName: 0,
+    salt: 0,
+    password: 0,
+    createdDate: 0
+  };
+
+  return UserModel.findOne(search).select(projection).exec(callback);
 };
 
 UserSchema.statics.findByUsername = (name, callback) => {

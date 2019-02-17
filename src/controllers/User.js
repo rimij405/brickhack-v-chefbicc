@@ -173,8 +173,6 @@ const UserController = (flags) => {
     }
 
     return User.UserModel.findByUsername(req.query.username, (err, docs) => {
-      console.log("Callback");
-     
       if (err) {
         if (flags.DEBUG) {
           console.log(`Client error: ${err} for username: ${req.query.username}`);
@@ -192,7 +190,11 @@ const UserController = (flags) => {
 
       return res.status(200).json({
         api: flags.API_METADATA,
-        models: docs,
+        models: {
+          _id: docs._id,
+          moods: docs.moods,
+          username: docs.username
+        }
       });
     });
   };
