@@ -48,11 +48,25 @@ const MoodController = (flags) => {
       });
     }
 
+
+//    if (req.body
+
     // Construct the data.
     const moodData = {
       mood: req.body.mood,
       owner: req.body.userId,
     };
+
+    // Triple-if!
+    if (req.body.cupsOfCoffee) {
+      moodData.cupsOfCoffee = req.body.coffee;
+    }
+    if (req.body.hoursOfSleep) {
+      moodData.hoursOfSleep = req.body.hoursOfSleep;
+    }
+    if (req.body.hoursOfExercise) {
+      moodData.hoursOfExercise = req.body.hoursOfExercise;
+    }
 
     // Construct instance.
     const newMoodInstance = new Mood.MoodModel(moodData);
