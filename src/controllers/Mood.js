@@ -64,7 +64,8 @@ const MoodController = (flags) => {
     moodPromise.then(
       () => res.status(201).json({ 
         api: flags.API_METADATA,
-        status: 'ok'
+        status: 'ok',
+        mood: Mood.MoodModel.toAPI(newMoodInstance)
        }),
     );
 
