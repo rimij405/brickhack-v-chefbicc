@@ -39,6 +39,9 @@ class Login extends Component {
         submitted: true
       })
     }
+    else {
+      document.getElementById('loginError').style.display = 'block';
+    }
   }
 
   checkUsername(value) {
