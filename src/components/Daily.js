@@ -4,6 +4,7 @@ import Caffeine from '../components/Caffeine.js';
 import Meals from '../components/Meals';
 import Sleep from '../components/Sleep';
 import Exercise from '../components/Exercise';
+import User from './User.js';
 
 import '../App.css';
 
@@ -40,18 +41,21 @@ class Daily extends Component {
   }
 
   checkExercise() {
+    //call to server and set the state, then display based on state
     if (this.state.exercise) {
       return(<Exercise minutesChanged={this.setState}/>);
     }
   }
 
   checkSleep() {
+    //call to server and set the state, then display based on state
     if (this.state.sleep) {
       return(<Sleep sleepChanged={this.setState}/>);
     }
   }
 
   checkMeals() {
+    //call to server and set the state, then display based on state
     if (this.state.meals) {
       return(<Meals mealsChanged={this.setState} />);
     }
@@ -60,6 +64,8 @@ class Daily extends Component {
   render() {
     return(
       <div className="main">
+
+        <User username={this.state.username} />
         <h1>How are you feeling today?</h1>
         <div>
           <button>Happy</button>

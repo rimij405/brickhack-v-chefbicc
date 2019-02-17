@@ -15,8 +15,8 @@ class Home extends Component {
   render() {
     return(
       <div className="main">
-        <h1>Welcome! {UserProfile.getName()}</h1>
-        <Daily />
+        <h1>Welcome!</h1>
+        <Daily username={this.state.username} />
       </div>
     );
   }

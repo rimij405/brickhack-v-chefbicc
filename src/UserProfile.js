@@ -4,7 +4,6 @@ var UserProfile = (function() {
   var getName = function() {
     return full_name;    // Or pull this from cookie/localStorage
   };
-
   var setName = function(name) {
     full_name = name;
     // Also set this in cookie/localStorage
@@ -12,7 +11,7 @@ var UserProfile = (function() {
 
   return {
     getName: getName,
-    setName: setName
+    setName: setName,
   }
 
 })();

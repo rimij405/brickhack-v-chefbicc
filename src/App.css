@@ -81,3 +81,10 @@ input{
   border-radius: 10px;
   border-width: 0;
 }
+
+.user{
+  position: fixed;
+  top: 0px;
+  right: 1em;
+  font-size: 2em;
+}
