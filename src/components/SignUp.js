@@ -103,14 +103,14 @@ class SignUp extends Component {
     
     else{
       return(
-        <div className="main">
+        <div className="question">
           <h1>SignUp</h1>
           <div>
-            <div className="main">
+            <div className="question">
               <h3>First Name</h3>
               <input type="text" name="first_name" onChange={e => this.handleFirstName(e.target.value)} />
             </div>
-            <div className="main">
+            <div className="question">
               <h3>Last Name</h3>
               <input type="text" name="first_name" onChange={e => this.handleLastName(e.target.value)} />
             </div>
