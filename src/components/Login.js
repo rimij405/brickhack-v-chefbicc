@@ -48,6 +48,9 @@ class Login extends Component {
       console.log(value.id);
       UserProfile.setId(value.id);
     }
+    else {
+      document.getElementById('loginError').style.display = 'block';
+    }
   }
 
   checkUsername(value) {
