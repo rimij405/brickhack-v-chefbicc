@@ -13,11 +13,8 @@ const controllers = (flags) => {
 
   // Response when root is called.
   const noRootQuery = (req, res) => {
-    let content = 'Cannot use root as endpoint for API server.';
-
     if (flags.DEBUG) {
       console.log('API does not allow queries on root endpoint.');
-      content = `DEBUG ${content}`;
     }
 
     return res.status(400).json({
@@ -25,7 +22,7 @@ const controllers = (flags) => {
       error: {
         code: flags.ERRORS.noRootQuery,
         name: 'No Root Query.',
-        message: content,
+        message: "Cannot use root as endpoint for API server.",
       },
     });
   };

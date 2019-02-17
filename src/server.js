@@ -38,6 +38,10 @@ const flags = {
   },
 };
 
+// Set up the body parser to support URL encoded and JSON payloads.
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // Set up routes.
 router(app, flags);
 
