@@ -22,11 +22,11 @@ const flags = {
         lastName: "E105",
         password: "E106",
         moodID: "E107"
-    }
+    },
 
     alreadyExists: {
         mood: "E201",
-        user: "E202
+        user: "E202",
     }
 
   },
