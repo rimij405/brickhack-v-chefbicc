@@ -59,7 +59,7 @@ const MoodController = (flags) => {
 
     // Triple-if!
     if (req.body.ouncesOfCoffee) {
-      moodData.ouncesOfCoffee = req.body.coffee;
+      moodData.ouncesOfCoffee = req.body.ouncesOfCoffee;
     }
     if (req.body.hoursOfSleep) {
       moodData.hoursOfSleep = req.body.hoursOfSleep;
