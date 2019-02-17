@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 
 // Set promise.
 mongoose.Promise = global.Promise;
+const convertId = mongoose.Types.ObjectId;
 
 // Create the user model.
 let UserModel = {};
@@ -80,7 +81,7 @@ UserSchema.statics.toAPI = doc => ({
 
 UserSchema.statics.findById = (userId, callback) => {
   const search = {
-    _id: mongoose.Types.ObjectId(userId),
+    _id: convertId(userId),
   };
 
   return UserModel.findOne(search, callback);

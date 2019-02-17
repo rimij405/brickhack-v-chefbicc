@@ -27,7 +27,7 @@ const MoodController = (flags) => {
         error: {
           code: flags.ERRORS.missing.mood,
           name: 'Missing Mood data.',
-          message: "Mood value is missing from request.",
+          message: 'Mood value is missing from request.',
         },
       });
     }
@@ -43,13 +43,10 @@ const MoodController = (flags) => {
         error: {
           code: flags.ERRORS.missing.user,
           name: 'Missing User ID.',
-          message: content,
+          message: 'Cannot create a mood with a missing UserID.',
         },
       });
     }
-
-    // Else, we can create the mood.
-    content = 'Creating Mood entry.';
 
     // Construct the data.
     const moodData = {
@@ -71,7 +68,7 @@ const MoodController = (flags) => {
     // Handle errors.
     moodPromise.catch((err) => {
       if (flags.DEBUG) {
-        console.log(`Client error: ${err}`);
+        console.log(`Client error: ${err}.`);
       }
 
       if (err.code === 11000) {
@@ -80,7 +77,7 @@ const MoodController = (flags) => {
           error: {
             code: flags.ERRORS.alreadyExists.mood,
             name: 'Duplicate Mood.',
-            message: "Mood entry already exists.",
+            message: 'Mood entry already exists.',
           },
         });
       }
@@ -90,7 +87,7 @@ const MoodController = (flags) => {
         error: {
           code: flags.ERRORS.unknownError,
           name: 'Unknown Error',
-          message: "An unknown error occured while attempting to create the mood.",
+          message: 'An unknown error occured while attempting to create the mood.',
         },
       });
     });
@@ -113,7 +110,7 @@ const MoodController = (flags) => {
         error: {
           code: flags.ERRORS.missing.moodID,
           name: 'Missing Mood ID.',
-          message: "Cannot delete mood without mood ID.",
+          message: 'Cannot delete mood without mood ID.',
         },
       });
     }
@@ -130,7 +127,7 @@ const MoodController = (flags) => {
           error: {
             code: flags.ERRORS.unknownError,
             name: 'Mood Deletion Error.',
-            message:  `An error occured while deleting Mood ${req.body._id}.`,
+            message: `An error occured while deleting Mood ${req.body._id}.`,
           },
         });
       }
@@ -140,7 +137,7 @@ const MoodController = (flags) => {
   };
 
   const getMoods = (req, res) => {
-    // Error check for missing user ID.    
+    // Error check for missing user ID.
     if (!req.query || !req.query.userId) {
       if (flags.DEBUG) {
         console.log('Client error. Missing user ID.');

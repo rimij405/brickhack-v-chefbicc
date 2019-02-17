@@ -24,7 +24,7 @@ const flags = {
       password: 'E106',
       moodID: 'E107',
       email: 'E108',
-      userID: "E109",
+      userID: 'E109',
     },
 
     alreadyExists: {

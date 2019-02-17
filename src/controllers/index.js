@@ -23,7 +23,7 @@ const controllers = (flags) => {
       error: {
         code: flags.ERRORS.noRootQuery,
         name: 'No Root Query.',
-        message: "Cannot use root as endpoint for API server.",
+        message: 'Cannot use root as endpoint for API server.',
       },
     });
   };

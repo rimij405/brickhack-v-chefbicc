@@ -43,10 +43,6 @@ const UserController = (flags) => {
       });
     }
 
-
-    // We are clear to create a user
-    content = 'Creating user';
-
     const userData = {
       username: req.body.username,
       firstName: req.body.firstName,
@@ -68,7 +64,29 @@ const UserController = (flags) => {
 
     // Handle errors
     userPromise.catch((err) => {
-      console.log('You dun did a wrong'); // TODO
+      if (flags.DEBUG) {
+        console.log(`Client error: ${err}.`);
+      }
+
+      if (err.code === 11000) {
+        return res.status(400).json({
+          api: flags.API_METADATA,
+          error: {
+            code: flags.ERRORS.alreadyExists.user,
+            name: 'Duplicate User.',
+            message: 'User entry already exists.',
+          },
+        });
+      }
+
+      return res.status(400).json({
+        api: flags.API_METADATA,
+        error: {
+          code: flags.ERRORS.unknownError,
+          name: 'Unknown Error',
+          message: 'An unknown error occured while attempting to create the user.',
+        },
+      });
     });
 
     return userPromise;
@@ -117,7 +135,7 @@ const UserController = (flags) => {
   };
 
   const getUser = (req, res) => {
-    // Error check for missing username.    
+    // Error check for missing username.
     if (!req.query || !req.query.username) {
       if (flags.DEBUG) {
         console.log('Client error. Missing username.');
@@ -162,7 +180,6 @@ const UserController = (flags) => {
     deleteUser,
     getUser,
   };
-
 };
 
 module.exports = UserController;
