@@ -88,3 +88,17 @@ input{
   right: 1em;
   font-size: 2em;
 }
+
+select {
+  background-color: white;
+  color: #002699;
+  height: 30px;
+}
+
+#add {
+  height: fit-content;
+  width: fit-content;
+  font-size: 1em;
+  border-radius: 30px;
+  margin: 20px;
+}
