@@ -66,6 +66,7 @@ class SignUp extends Component {
     }
 
     let response = createUser(post, this.checkResponse);
+    UserProfile.setName(this.state.username);
 
 
  }
