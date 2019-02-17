@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = require('./router.js');
 // const models = require('./models');
 
@@ -26,7 +27,7 @@ const flags = {
 
     alreadyExists: {
         mood: "E201",
-        user: "E202",
+        user: "E202", 
     }
 
   },
