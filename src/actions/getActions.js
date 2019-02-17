@@ -21,7 +21,7 @@ export function checkUsername() {
     });
 }
 
-export function getMoods(id) {
+export function getMoods(id, callback) {
     let url = 'http://hmf.student.rit.edu:1080/getMoods?userId=' + id;
     return fetch(url, {
         method: 'GET',
@@ -34,14 +34,13 @@ export function getMoods(id) {
             'X-Debug-Mode': 'true'
 
         },
-        mode: 'cors',
     }).then(res => {
         console.log(res);
-        return res;
+        return callback(res.json());
     }).catch(err => {
-            console.log(err);
-            return err;
-        });
+        console.log(err);
+        return err;
+    });
 }
 
 export function createUser(data, callback) {
