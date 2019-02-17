@@ -35,22 +35,35 @@ class Login extends Component {
 
   
 
-  checkResponse(value){
-    let id;
-    value.then(function(result){
-      console.log(result.user._id);
+  checkResponse(value){    
+
+    const _this = this;
+
+    const isValid = (status) => {
+      return (status === "ok");
+    };
+
+    value.then(function(response){
+      console.log(response);
+      return response;
+    }).then(function(blob){
+      let payload = blob;
+      console.dir(payload);
+
+      // Perform functions here.
+      if(isValid(payload.status)){
+        _this.setState({
+          submitted: true
+        });
+        console.log(payload.user._id);
+        UserProfile.setId(payload.user._id);
+      } 
+      else
+      {
+        document.getElementById('loginError').style.display = 'block';
+      }
+
     });
-    console.log(id);
-    if(value.ok === true){
-      this.setState({
-        submitted: true
-      })
-      console.log(value.id);
-      UserProfile.setId(value.id);
-    }
-    else {
-      document.getElementById('loginError').style.display = 'block';
-    }
   }
 
   checkUsername(value) {
