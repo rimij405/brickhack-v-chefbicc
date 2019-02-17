@@ -1,47 +1,47 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const models = require('./models');
 
+// Create the application.
 const app = express();
-
 
 // Check port and debug mode values.
 const environment = process.env.NODE_ENV.trim() || 'dev';
 
+// Set flags.
 const flags = {
   DEBUG: (environment === 'dev'),
   PORT: (process.env.PORT || 3001),
 };
 
-
-const mongoose = require('mongoose');
+// Declare database connection.
+let db = undefined;
 
 // In dev mode, connect to the test DB
 if (flags.DEBUG) {
-  const db = mongoose.connect('mongodb://localhost/test');
+  db = mongoose.connect('mongodb://localhost/test');
 } else {
-  // Undefined!
-  // const db = mongoose.connect('mongodb://localhost/OFFICIALDB
+  // db = mongoose.connect('mongodb://localhost/OFFICIALDB
 }
 
-const userSchema = new mongoose.Schema({
+/* const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
   moodIDs: [{ id: Number }],
-});
-
+}); */
 
 
 // TODO determine representation each of these- what is a "mood"?
 const moodSchema = new mongoose.Schema({
   uuid: Number,
   date: String,
-  mood: Number
+  mood: Number,
 });
 
-
-const User = mongoose.model('User', userSchema);
+// Grab the models.
+const User = models.User.UserModel;
 const Mood = mongoose.model('Mood', moodSchema);
-
 
 app.get('/', (req, res) => {
   let resBody = 'Hello mongodb!';
@@ -51,18 +51,15 @@ app.get('/', (req, res) => {
   res.send(resBody);
 });
 
-app.get('/users/:userId', (req, res) => {
-  res.send(req.params);
-});
-
-app.get('/mkuser/:firstName', (req, res) => {
-  const newUser = new User({
+app.get('/mkuser/:username/:firstName/:lastName', (req, res) => {
+  const userParams = {
+    username: req.params.username,
     firstName: req.params.firstName,
-    lastName: 'default',
-    email: 'default',
-    moodIDs: [],
-  });
-  res.send(newUser);
+    lastName: req.params.lastName,
+    salt: 'default',
+    password: 'default'
+  };
+  const newUser = new User(userParams);
   newUser.save();
   console.log('User created');
 });
