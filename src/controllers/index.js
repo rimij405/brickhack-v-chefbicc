@@ -1,6 +1,6 @@
 // Using statements.
 const moodController = require('./Mood.js');
-// const userController = require('./User.js');
+const userController = require('./User.js');
 
 // Includes static controllers to export.
 const controllers = (flags) => {
@@ -9,6 +9,7 @@ const controllers = (flags) => {
   }
 
   // Construct the model controllers.
+  const User = userController(flags);
   const Mood = moodController(flags);
 
   // Response when root is called.
@@ -31,6 +32,7 @@ const controllers = (flags) => {
   return {
     noRootQuery,
     Mood,
+    User,
   };
 };
 
