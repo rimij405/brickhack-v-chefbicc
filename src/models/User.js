@@ -78,6 +78,14 @@ UserSchema.statics.toAPI = doc => ({
   _id: doc._id,
 });
 
+UserSchema.statics.findById = (userId, callback) => {
+  const search = {
+    _id: mongoose.Types.ObjectId(userId),
+  };
+
+  return UserModel.findOne(search, callback);
+};
+
 UserSchema.statics.findByUsername = (name, callback) => {
   const search = {
     username: name,
