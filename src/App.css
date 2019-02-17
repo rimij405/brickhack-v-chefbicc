@@ -102,3 +102,7 @@ select {
   border-radius: 30px;
   margin: 20px;
 }
+
+.selectedMood{
+  background-color: lightgray;
+}
