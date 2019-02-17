@@ -16,20 +16,20 @@ const flags = {
     noRootQuery: 'E001',
 
     missing: {
-        mood: "E101",
-        user: "E102",
-        userName: "E103",
-        firstName: "E104",
-        lastName: "E105",
-        password: "E106",
-        moodID: "E107",
-        email: "E108",
+      mood: 'E101',
+      user: 'E102',
+      userName: 'E103',
+      firstName: 'E104',
+      lastName: 'E105',
+      password: 'E106',
+      moodID: 'E107',
+      email: 'E108',
     },
 
     alreadyExists: {
-        mood: "E201",
-        user: "E202", 
-    }
+      mood: 'E201',
+      user: 'E202',
+    },
 
   },
   API_METADATA: {
