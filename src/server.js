@@ -6,9 +6,12 @@ const app = express();
 
 // Check port and debug mode values.
 const flags = {
-  DEBUG: (process.env.NODE_ENV.trim() === 'dev'),
+  DEBUG: (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'dev'),
   PORT: (process.env.PORT || process.env.NODE_PORT || 3001),
-  MONGODB_URI: (process.env.MONGODB_URI || 'mongodb://localhost/moodswing')
+  MONGODB_URI: (process.env.MONGODB_URI || 'mongodb://localhost/moodswing'),
+  ERRORS: {
+      noRootQuery: "E001"
+  }
 };
 
 // Set up routes.
@@ -22,10 +25,9 @@ app.listen(flags.PORT, (err) => {
 
 
 
-
+/*
 app.use('/time', (req, res, next) => {
   console.log('Time: ', Date.now());
   next();
 });
-
-app.listen(flags.PORT, () => console.log(`Server listening on port ${flags.PORT}!`));
+*/

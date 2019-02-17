@@ -26,8 +26,9 @@ if (flags.DEBUG) {
 
 
 // Grab the models.
-const User = models.User.UserModel;
-const Mood = models.Mood.MoodModel; // mongoose.model('Mood', moodSchema);
+const Models = models(flags);
+const User = Models.User.UserModel;
+const Mood = Models.Mood.MoodModel; // mongoose.model('Mood', moodSchema);
 
 app.get('/', (req, res) => {
   let resBody = 'Hello mongodb!';
