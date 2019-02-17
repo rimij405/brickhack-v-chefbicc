@@ -22,6 +22,87 @@ const UserController = (flags) => {
     console.log('Preparing User controller functions...');
   }
 
+  // Login
+  const loginUser = (req, res) => {
+    // Set to strings.
+    const request = { body: {} };
+    request.username = (req.body && req.body.username) ? `${req.body.username}` : undefined;
+    request.password = (req.body && req.body.password) ? `${req.body.password}` : undefined;
+
+    if(!request.username) {
+      if(flags.DEBUG) {
+        console.log(`Client error. Missing value: ${request.username}`);
+      }
+
+      return res.status(400).json({
+        api: flags.API_METADATA,
+        error: {
+          code: flags.ERRORS.missing.username,
+          name: 'Missing username.',
+          message: 'Username value missing from request.'
+        }
+      });
+    }
+
+    if(!request.password) {
+      if(flags.DEBUG) {
+        console.log(`Client error. Missing value: *********`);
+      }
+
+      return res.status(400).json({
+        api: flags.API_METADATA,
+        error: {
+          code: flags.ERRORS.missing.password,
+          name: 'Missing password.',
+          message: 'Password value missing from request.'
+        }
+      });
+    }
+
+    return User.UserModel.authenticate(request.username, request.password, (err, doc) => {
+      if(err) {
+        if(flags.DEBUG){
+          console.log(`Client error. Incorrect username.`);
+        }
+
+        return res.status(400).json({
+          api: flags.API_METADATA,
+          error: {
+            code: flags.ERRORS.incorrect.username,
+            name: 'Incorrect Username.',
+            message: "User of username given by client does not exist."
+          }
+        });
+      }
+
+      if(!doc) {
+        if(flags.DEBUG){
+          console.log(`Client error. Incorrect password.`);
+        }
+
+        return res.status(400).json({
+          api: flags.API_METADATA,
+          error: {
+            code: flags.ERRORS.incorrect.password,
+            name: 'Incorrect Password.',
+            message: "Incorrect password given by client. Cannot validate user."
+          }
+        });
+      }
+
+      return res.status(200).json({
+        api: flags.API_METADATA,
+        status: "ok",
+        user: {
+          _id: doc._id,
+          moods: doc.moods,
+          username: doc.username
+        }
+      });
+
+    });
+  };
+
   // Create a new user
 
   // Need username, firstname, lastname, email, pw
@@ -176,8 +257,8 @@ const UserController = (flags) => {
       });
     }
 
-    return User.UserModel.findByUsername(req.query.username, (err, docs) => {
-      if (err || !docs) {
+    return User.UserModel.findByUsername(req.query.username, (err, doc) => {
+      if (err || !doc) {
         if (flags.DEBUG) {
           console.log(`Client error: ${err} for username: ${req.query.username}`);
         }
@@ -194,16 +275,18 @@ const UserController = (flags) => {
 
       return res.status(200).json({
         api: flags.API_METADATA,
-        models: {
-          _id: docs._id,
-          moods: docs.moods,
-          username: docs.username
+        status: "ok",
+        user: {
+          _id: doc._id,
+          moods: doc.moods,
+          username: doc.username
         }
       });
     });
   };
 
   return {
+    loginUser,
     createUser,
     deleteUser,
     getUser,

@@ -34,6 +34,11 @@ const flags = {
       user: 'E202',
     },
 
+    incorrect: {
+      username: 'E301',
+      password: 'E302',
+    }
+
   },
   API_METADATA: {
     application: 'MS',

@@ -16,7 +16,7 @@ const router = (app, flags) => {
   app.get('/', mid.requiresSecure, con.noRootQuery);
 
   // ACTIONS:
-  // // Login.
+  app.post('/loginUser', mid.requiresSecure, con.User.loginUser);
   app.get('/getUser', mid.requiresSecure, con.User.getUser);
   app.get('/getMoods', mid.requiresSecure, con.Mood.getMoods);
   app.post('/createUser', mid.requiresSecure, con.User.createUser);
