@@ -15,33 +15,19 @@ const flags = {
 };
 
 // Declare database connection.
-let db = undefined;
+let db;
 
 // In dev mode, connect to the test DB
 if (flags.DEBUG) {
   db = mongoose.connect('mongodb://localhost/test');
 } else {
-  // db = mongoose.connect('mongodb://localhost/OFFICIALDB
+  // db = mongoose.connect('mongodb://localhost/production
 }
 
-/* const userSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  moodIDs: [{ id: Number }],
-}); */
-
-
-// TODO determine representation each of these- what is a "mood"?
-const moodSchema = new mongoose.Schema({
-  uuid: Number,
-  date: String,
-  mood: Number,
-});
 
 // Grab the models.
 const User = models.User.UserModel;
-const Mood = mongoose.model('Mood', moodSchema);
+const Mood = models.Mood.MoodModel; // mongoose.model('Mood', moodSchema);
 
 app.get('/', (req, res) => {
   let resBody = 'Hello mongodb!';
@@ -57,7 +43,7 @@ app.get('/mkuser/:username/:firstName/:lastName', (req, res) => {
     firstName: req.params.firstName,
     lastName: req.params.lastName,
     salt: 'default',
-    password: 'default'
+    password: 'default',
   };
   const newUser = new User(userParams);
   newUser.save();
