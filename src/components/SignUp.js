@@ -4,12 +4,18 @@ import Open from '../components/Open.js';
 import Home from '../components/Home.js';
 import {checkUsername} from '../actions/getActions';
 import {createUser} from '../actions/getActions';
+import {withCookies, Cookies} from 'react-cookie';
+import {instanceOf} from 'prop-types';
 
 
 class SignUp extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+    const { cookies } = props;
     this.state = {
       goBack: false,
       email: '',
@@ -139,7 +145,7 @@ class SignUp extends Component {
       return(<Open />);
     }
     else if (this.state.submitted === true) {
-      return(<Home username={this.state.username} />);
+      return(<Home cookies={this.props.cookies}  username={this.state.username} />);
     }
     
     else{
@@ -184,4 +190,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default withCookies(SignUp);
