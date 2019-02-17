@@ -56,8 +56,10 @@ export function logIn(data, callback) {
         body: JSON.stringify(data)
     }).then(res => {
         console.log(res);
-        return callback(res);
-    }).catch(err => {
+        return callback(res.json());
+    }).then((data) => {
+          console.log(data);
+      }).catch(err => {
         console.log(err);
         return err;
     });

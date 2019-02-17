@@ -4,6 +4,7 @@ import '../App.css';
 import Open from '../components/Open.js';
 import Home from '../components/Home.js';
 import {logIn} from '../actions/getActions';
+import User from './User';
 
 class Login extends Component {
   constructor(){
@@ -32,12 +33,20 @@ class Login extends Component {
     
   }
 
+  
+
   checkResponse(value){
-    console.log(value.ok);
+    let id;
+    value.then(function(result){
+      console.log(result.user._id);
+    });
+    console.log(id);
     if(value.ok === true){
       this.setState({
         submitted: true
       })
+      console.log(value.id);
+      UserProfile.setId(value.id);
     }
   }
 

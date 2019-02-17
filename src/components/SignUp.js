@@ -65,11 +65,13 @@ class SignUp extends Component {
  }
 
  checkResponse(value){
-    console.log(value.ok);
-    if(value.ok === true){
+    console.log(value);
+    if(value.status === 'ok'){
       this.setState({
         submitted: true
       })
+      console.log(value.user._id);
+      UserProfile.setId(value.user._id);
     }else{
       document.getElementById('usernameTaken').style.display = 'block';
     }
