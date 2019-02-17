@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import UserProfile from '../UserProfile';
 import Open from '../components/Open.js';
 import Home from '../components/Home.js';
+import axios from 'axios';
+import {checkUsername} from '../actions/getActions';
+import {createUser} from '../actions/getActions';
 
 
 class SignUp extends Component {
@@ -48,24 +51,15 @@ class SignUp extends Component {
 
   handleSubmit(formSubmit){
     let post = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+      firstName: this.state.first_name,
+      lastName: this.state.last_name,
       email: this.state.email,
       username: this.state.username,
       password: this.state.password
     }
-    //create on server
-    let response = fetch('https://jsonplaceholder.typicode.com/todos/1/posts', {
-      method: 'POST',
-      body: JSON.stringify(post)
-    }).then(function(response){return response});
-    console.log(response);
-    UserProfile.setName(this.state.email);
-    if (this.handleEmail(this.state.email) && this.handleUsername(this.state.username) && this.handlePassChange(this.state.password)) {
-      this.setState({
-        submitted: true
-      })
-    }
+
+    let response = createUser(post);
+
 
  }
 
