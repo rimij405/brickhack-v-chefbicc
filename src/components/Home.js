@@ -12,21 +12,28 @@ class Home extends Component {
       daily: false,
     }
 
+    this.setState = this.setState.bind(this);
+    this.setDaily = this.setDaily.bind(this);
   }
 
   checkDailyForm(){
     if(this.state.daily === false){
-      return(<Daily setDaily={this.setState} username={this.state.username}/>);
+      return(<Daily setDaily={this.setDaily} username={this.state.username}/>);
     }
   }
 
+  setDaily(value){
+    this.setState({
+      daily: value
+    });
+  }
 
   render() {
     return(
       <div className="main">
         <h1>Welcome!</h1>
-        <p>{this.state.daily}</p>
         {this.checkDailyForm()}
+
 
       </div>
     );

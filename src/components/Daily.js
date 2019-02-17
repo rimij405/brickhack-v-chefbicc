@@ -21,6 +21,10 @@ class Daily extends Component {
       meals: false
     }
 
+    this.checkCaffeine = this.checkCaffeine.bind(this);
+    this.checkMeals = this.checkMeals.bind(this);
+    this.checkExercise = this.checkExercise.bind(this);
+    this.checkSleep = this.checkSleep.bind(this);
   }
 
   displayOptions(){
@@ -83,7 +87,7 @@ class Daily extends Component {
           <button onClick={e => this.setState({sleep: true})}>Sleep</button>
           <button onClick={e => this.setState({meals: true})}>Meals</button>
         </div>
-        <button >Submit</button>
+        <button onClick={e => this.props.setDaily(true)}>Submit</button>
       </div>
     );
   }
