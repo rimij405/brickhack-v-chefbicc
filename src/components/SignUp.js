@@ -13,6 +13,8 @@ class SignUp extends Component {
       email: '',
       password: '',
       submitted: false,
+      first_name: '',
+      last_name: '',
       username: ''
     }
 
@@ -43,6 +45,18 @@ class SignUp extends Component {
     }
   }
   handleSubmit(formSubmit){
+    let post = {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      email: this.state.email,
+      username: this.state.username,
+      password: this.state.password
+    }
+    //create on server
+    fetch('', {
+      method: 'POST',
+      body: JSON.stringify()
+    })
     UserProfile.setName(this.state.email);
     if (this.handleEmail(this.state.email) && this.handleUsername(this.state.username) && this.handlePassChange(this.state.password)) {
       this.setState({
@@ -64,6 +78,18 @@ class SignUp extends Component {
    }
  }
 
+ handleFirstName(value){
+    this.setState({
+      first_name: value
+    });
+ }
+
+ handleLastName(value){
+    this.setState({
+      last_name: value
+    })
+ }
+
   render() {
     if(this.state.goBack === true){
       return(<Open />);
@@ -76,6 +102,16 @@ class SignUp extends Component {
       return(
         <div className="main">
           <h1>SignUp</h1>
+          <div>
+            <div className="main">
+              <h3>First Name</h3>
+              <input type="text" name="first_name" onChange={e => this.handleFirstName(e.target.value)} />
+            </div>
+            <div className="main">
+              <h3>Last Name</h3>
+              <input type="text" name="first_name" onChange={e => this.handleLastName(e.target.value)} />
+            </div>
+          </div>
           <h3>Email Address</h3>
           <div className="error" id="emailError">Please enter a valid email</div>
           <input type="text" name="email" onChange={e => this.handleEmail(e.target.value)}/>
