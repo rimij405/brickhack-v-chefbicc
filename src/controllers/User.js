@@ -115,7 +115,7 @@ const UserController = (flags) => {
     // "mongodb.users.deleteOne(uid)"
 
     // Call helper method and delete
-    return User.UserModel.findByIdAndDelete(req.body._id, (err) => {
+    return User.findByIdAndDelete(req.body._id, (err) => {
       if (err) {
         if (flags.Debug) {
           console.log(`Client error: ${err}`);
@@ -146,13 +146,14 @@ const UserController = (flags) => {
         error: {
           code: flags.ERRORS.missing.username,
           name: 'Missing Username.',
-          message: 'Cannot query for moods without user name.',
+          message: 'Cannot query for users without user name.',
         },
       });
     }
 
-
     return User.UserModel.findByUsername(req.query.username, (err, docs) => {
+      console.log("Callback");
+     
       if (err) {
         if (flags.DEBUG) {
           console.log(`Client error: ${err} for username: ${req.query.username}`);
@@ -162,7 +163,7 @@ const UserController = (flags) => {
           api: flags.API_METADATA,
           error: {
             code: flags.ERRORS.unknownError,
-            name: 'Mood Query Error.',
+            name: 'User Query Error.',
             message: `Error when querying for user by username ${req.query.username}.`,
           },
         });

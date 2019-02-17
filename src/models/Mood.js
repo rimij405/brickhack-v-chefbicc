@@ -32,10 +32,6 @@ const MoodSchema = new mongoose.Schema({
   },
 });
 
-
-// Create the model.
-const MoodModel = mongoose.model('Mood', MoodSchema);
-
 // Helper methods.
 
 MoodSchema.statics.toAPI = doc => ({
@@ -60,6 +56,9 @@ MoodSchema.statics.findByIdAndDelete = (moodId, callback) => {
 
   return MoodModel.deleteOne(search).exec(callback);
 };
+
+// Create the model.
+const MoodModel = mongoose.model('Mood', MoodSchema);
 
 // Export the model.
 module.exports = {

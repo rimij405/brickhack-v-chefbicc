@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
   res.send(resBody);
 });
 
-app.get('/mkuser/:username/:firstName/:lastName', (req, res) => {
+app.post('/mkuser/:username/:firstName/:lastName', (req, res) => {
   const userParams = {
     username: req.params.username,
     firstName: req.params.firstName,
@@ -49,6 +49,8 @@ app.get('/mkuser/:username/:firstName/:lastName', (req, res) => {
   const newUser = new User(userParams);
   newUser.save();
   console.log('User created');
+
+  return res.status(200).json({status:"ok"});
 });
 
 app.get('/getuser/:firstName', (req, res) => {

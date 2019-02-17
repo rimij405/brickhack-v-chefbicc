@@ -8,6 +8,9 @@
 # vim
 *.swp
 
+# vscode
+*.vscode
+
 # testing
 /coverage
 

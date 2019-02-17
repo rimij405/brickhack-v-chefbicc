@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = require('./router.js');
+const mongoose = require('mongoose');
 // const models = require('./models');
 
 const app = express();
@@ -9,7 +10,7 @@ const app = express();
 const flags = {
   DEBUG: (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'dev'),
   PORT: (process.env.PORT || process.env.NODE_PORT || 3001),
-  MONGODB_URI: (process.env.MONGODB_URI || 'mongodb://localhost/moodswing'),
+  MONGODB_URI: (process.env.MONGODB_URI || 'mongodb://localhost/test'),
   ERRORS: {
 
     unknownError: 'E000',
@@ -38,6 +39,15 @@ const flags = {
     version: (process.env.API_VERSION || 1),
   },
 };
+
+// Connect to the database.
+mongoose.connect(
+  flags.MONGODB_URI,
+  {
+    useCreateIndex: true,
+    useNewUrlParser: true
+  }
+);
 
 // Set up the body parser to support URL encoded and JSON payloads.
 app.use(bodyParser.urlencoded({ extended: false }));
