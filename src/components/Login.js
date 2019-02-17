@@ -33,9 +33,38 @@ class Login extends Component {
     UserProfile.setName(this.state.username);
     UserProfile.setDaily(false);
 
-    this.setState({
-      submitted: true
-    });
+    if (this.checkUsername(this.state.username) && this.checkPassword(this.state.password)) {
+      this.setState({
+        submitted: true
+      });
+    }
+    
+  }
+
+  checkUsername(value) {
+    if (value.length === 0){
+      document.getElementById('usernameError').style.display = 'block';
+      return false;
+    }
+    else {
+      document.getElementById('usernameError').style.display = 'none';
+      this.setState({username: value})
+      return true;
+    }
+
+  }
+
+  checkPassword(value) {
+    if (value.length === 0){
+      document.getElementById('passwordError').style.display = 'block';
+      return false;
+    }
+    else {
+      document.getElementById('passwordError').style.display = 'none';
+      this.setState({password: value})
+      return true;
+    }
+
   }
 
   render() {
@@ -45,19 +74,20 @@ class Login extends Component {
       return(<Home username={this.state.username}/>);
     }else{
       return(
-        <div>
-          <form className="main" onSubmit={this.handleFormSubmit}>
+        <div className="main">
             <h1>Login</h1>
+            <div className="error" id="loginError">Invalid username or password</div>
             <h3>Username</h3>
-            <input type="text" name="username" onChange={e => this.setState({username: e.target.value})}/>
+            <div className="error" id="usernameError">Please enter a username</div>
+            <input type="text" name="username" onChange={e => this.checkUsername(e.target.value)}/>
             <h3>Password</h3>
-            <input type="password" name="password" onChange={e => this.setState({password: e.target.value})}/>
+            <div className="error" id="passwordError">Please enter a password</div>
+            <input type="password" name="password" onChange={e => this.checkPassword(e.target.value)}/>
             <br />
             <div>
-              <button type="submit">Submit</button>
+              <button onClick={e => this.handleFormSubmit()} type="submit">Submit</button>
               <button onClick={e => this.setState({goBack : true})}>Back</button>
             </div>
-          </form>
         </div>
       );
     }
