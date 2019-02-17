@@ -11,9 +11,9 @@ const router = (app, flags) => {
   if (flags.DEBUG) {
     console.log('Creating routes...');
   }
-  con.Mood
+  
   // ROOT: Returns a 404 error.
-    .app.get('/', mid.requiresSecure, con.noRootQuery);
+  app.get('/', mid.requiresSecure, con.noRootQuery);
 
   // ACTIONS:
   // // Login.
