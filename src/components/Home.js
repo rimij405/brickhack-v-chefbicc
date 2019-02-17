@@ -77,10 +77,10 @@ class Home extends Component {
     let sleep = '';
     let meals = '';
 
-    console.log(value);
+    //console.log(value);
 
     value.then(function(response){
-      console.log(response.moods);
+      //console.log(response.moods);
       let length = response.moods.length;
       for(let i=0; i<length; i++){
         Days.push(<Day key={i} date={response.moods[i].lastUpdated} mood={response.moods[i].mood} caffeine={response.moods[i].ouncesOfCoffee} exercise={response.moods[i].hoursOfExercise} sleep={response.moods[i].hourso}
@@ -88,7 +88,7 @@ class Home extends Component {
       }
 
     });
-    console.log(Days);
+    //console.log(Days);
     _this.props.cookies.set('days', Days, {path: '/'});
     return Days;
   }

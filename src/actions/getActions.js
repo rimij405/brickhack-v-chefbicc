@@ -35,7 +35,7 @@ export function getMoods(id, callback) {
 
         },
     }).then(res => {
-        console.log(res);
+        // console.log(res);
         return callback(res.json());
     }).catch(err => {
         console.log(err);
@@ -56,8 +56,7 @@ export function createUser(data, callback) {
                 },
         body: JSON.stringify(data)
     }).then(res => {
-        console.log(res);
-        return callback(res);
+        return callback(res.json());
     }).catch(err => {
         console.log(err);
         return err;
@@ -78,7 +77,7 @@ export function createMood(data, callback) {
         body: JSON.stringify(data)
     }).then(res => {
         console.log(res);
-        return callback(res);
+        return callback(res.json());
     }).catch(err => {
         console.log(err);
         return err;

@@ -20,7 +20,7 @@ class Day extends Component{
 
   checkCaffeine(){
     console.log(this.state.caffeine);
-    if(this.state.caffeine.length <= 0){
+    if(this.state.caffeine.length >= 0){
       return(<p> Ounces of Caffeine: {this.state.caffeine} </p>);
     }
   }

@@ -4,12 +4,15 @@ import Open from '../components/Open.js';
 import Home from '../components/Home.js';
 import {checkUsername} from '../actions/getActions';
 import {createUser} from '../actions/getActions';
+import {withCookies, Cookies} from 'react-cookie';
+import {instanceOf} from 'prop-types';
 
 
 class SignUp extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+    const { cookies } = props;
     this.state = {
       goBack: false,
       email: '',
@@ -65,16 +68,19 @@ class SignUp extends Component {
  }
 
  checkResponse(value){
-    console.log(value);
-    if(value.status === 'ok'){
+   value.then(response => {return response; }).then(payload => {
+     console.dir(payload);
+    if(payload.status === 'ok'){
       this.setState({
         submitted: true
       })
-      console.log(value.user._id);
-      UserProfile.setId(value.user._id);
+      UserProfile.setId(payload.user._id);
+      this.state.cookies.set('id', payload.user._id, {path: '/'})
     }else{
       document.getElementById('usernameTaken').style.display = 'block';
     }
+   })
+
 
  }
 
@@ -120,7 +126,7 @@ class SignUp extends Component {
       return(<Open />);
     }
     else if (this.state.submitted === true) {
-      return(<Home username={this.state.username} />);
+      return(<Home cookies={this.props.cookies}  username={this.state.username} />);
     }
     
     else{
