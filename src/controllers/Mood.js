@@ -28,7 +28,7 @@ const MoodController = (flags) => {
       return res.status(400).json({
         api: flags.API_METADATA,
         error: {
-          code: flags.ERRORS.missingMood,
+          code: flags.ERRORS.missing.mood,
           name: 'Missing Mood data.',
           message: content,
         },
@@ -45,7 +45,7 @@ const MoodController = (flags) => {
       return res.status(400).json({
         api: flags.API_METADATA,
         error: {
-          code: flags.ERRORS.missingUser,
+          code: flags.ERRORS.missing.user,
           name: 'Missing User ID.',
           message: content,
         },
@@ -86,7 +86,7 @@ const MoodController = (flags) => {
         return res.status(400).json({
           api: flags.API_METADATA,
           error: {
-            code: flags.ERRORS.moodAlreadyExists,
+            code: flags.ERRORS.alreadyExists.mood,
             name: 'Duplicate Mood.',
             message: content,
           },
@@ -122,7 +122,7 @@ const MoodController = (flags) => {
       return res.status(400).json({
         api: flags.API_METADATA,
         error: {
-          code: flags.ERRORS.missingMoodID,
+          code: flags.ERRORS.missing.moodID,
           name: 'Missing Mood ID.',
           message: content,
         },
@@ -165,7 +165,7 @@ const MoodController = (flags) => {
       return res.status(400).json({
         api: flags.API_METADATA,
         error: {
-          code: flags.ERRORS.missingUser,
+          code: flags.ERRORS.missing.user,
           name: 'Missing User ID.',
           message: content,
         },

@@ -10,14 +10,24 @@ const flags = {
   PORT: (process.env.PORT || process.env.NODE_PORT || 3001),
   MONGODB_URI: (process.env.MONGODB_URI || 'mongodb://localhost/moodswing'),
   ERRORS: {
+
     unknownError: 'E000',
     noRootQuery: 'E001',
-    missingMood: 'E002',
-    missingUser: 'E003',
-    moodAlreadyExists: 'E004',
-    userAlreadyExists: 'E005',
-    missingMoodID: 'E006',
-    missingUserID: 'E007',
+
+    missing: {
+        mood: "E101",
+        user: "E102",
+        userName: "E103",
+        firstName: "E104",
+        lastName: "E105",
+        password: "E106",
+        moodID: "E107"
+    }
+
+    alreadyExists: {
+        mood: "E201",
+        user: "E202
+    }
 
   },
   API_METADATA: {
