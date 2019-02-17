@@ -17,7 +17,8 @@ class Daily extends Component {
       caffeine: false,
       exercise: false,
       sleep: false,
-      meals: false
+      meals: false,
+      mood: ''
     }
 
     this.setState = this.setState.bind(this);
@@ -64,6 +65,22 @@ class Daily extends Component {
     }
   }
 
+  setMood(value) {
+    var element;
+    
+      element = document.getElementById(this.state.mood);
+
+      if (element !== null) {
+        element.classList.remove("selectedMood");
+      }
+   
+    this.setState({
+      mood: value
+    });
+    var elementTwo = document.getElementById(value);
+    elementTwo.classList.add("selectedMood");
+  }
+
   render() {
     return(
       <div className="main">
@@ -71,8 +88,8 @@ class Daily extends Component {
 
         <h1>How are you feeling today?</h1>
         <div>
-          <button>Happy</button>
-          <button>Sad</button>
+          <button id="happy" onClick={e => this.setMood("happy")}>Happy</button>
+          <button id="sad" onClick={e => this.setMood("sad")}>Sad</button>
         </div>
 
         {this.checkCaffeine()}
