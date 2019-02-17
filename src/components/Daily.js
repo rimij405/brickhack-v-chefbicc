@@ -77,7 +77,7 @@ class Daily extends Component {
         {this.checkMeals()}
         {this.checkSleep()}
 
-        <button onClick={e => this.displayOptions()}>Add More</button>
+        <button id="add" onClick={e => this.displayOptions()}>&#43;</button>
         <div className="options" id="options">
           <button onClick={e => this.setState({caffeine: true})}>Caffeine</button>
           <button onClick={e => this.setState({exercise: true})}>Exercise</button>
