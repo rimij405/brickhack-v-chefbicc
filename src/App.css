@@ -121,7 +121,8 @@ select {
 }
 
 .dayHolder{
-  padding-left: 30px;
+  margin: auto;
+  width: fit-content;
 }
 
 .daily{
@@ -137,6 +138,7 @@ select {
 }
 
 h1{
+  text-align: center;
   font-weight: normal;
 }
 

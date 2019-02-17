@@ -18,9 +18,9 @@ class Day extends Component{
       <div className="day">
         <h2>{this.state.date}</h2>
         <hr />
-        <p>{this.state.mood}</p>
-        <p>{this.state.caffeine}</p>
-        <p>{this.state.exercise}</p>
+        <p> Mood: {this.state.mood}</p>
+        <p> Ounces of Caffeine: {this.state.caffeine}</p>
+        <p> Minutes of Exercise: {this.state.exercise}</p>
       </div>
     );
   }
