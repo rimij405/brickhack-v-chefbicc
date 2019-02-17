@@ -6,7 +6,8 @@ const middleware = (flags) => {
 
   // Redirect to HTTPS in production. Ignore this in dev/debug.
   const requiresSecure = (req, res, next) => {
-    if (flags.DEBUG) {
+    next();
+    /* if (flags.DEBUG) {
       // for dev.
       console.log('Ignore HTTPS redirect in development environment.');
       return next();
@@ -14,9 +15,10 @@ const middleware = (flags) => {
 
     // For prod.
     if (req.headers['x-forwarded-proto'] !== 'https') {
+      console.log(`https://${req.get('host')}${req.originalUrl}`);
       return res.redirect(`https://${req.get('host')}${req.originalUrl}`);
     }
-    return next();
+    return next(); */
   };
 
   // Return the middleware functions.
