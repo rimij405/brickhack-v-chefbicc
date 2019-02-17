@@ -34,6 +34,7 @@ export function getMoods(id) {
             'X-Debug-Mode': 'true'
 
         },
+        mode: 'cors',
     }).then(res => {
         console.log(res);
         return res;

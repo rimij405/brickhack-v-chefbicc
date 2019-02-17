@@ -64,9 +64,28 @@ class Home extends Component {
     });
   }
 
+  checkResponse(value){
+    value = this.state.data;
+
+    const _this = this;
+
+    const isValid = (status) => {
+      return (status === "ok");
+    };
+
+    value.then(function(response){
+      console.log(response);
+      return response;
+    }).then(function(blob){
+      let payload = blob;
+      console.dir(payload.moods);
+    });
+  }
+
   createDays(days){
-    this.state.data = getMoods(this.props.cookies.get('id'));
-       console.log(this.state.data);
+    this.state.data = getMoods(this.props.cookies.get('id'), this.checkResponse);
+    console.log(this.state.data);
+
     if(this.state.daily === true) {
       var Days = [];
       let date = '';
