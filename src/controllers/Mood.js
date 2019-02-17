@@ -33,7 +33,7 @@ const MoodController = (flags) => {
     }
 
     // Need the user.
-    if (!req.body.userID) {
+    if (!req.body.userId) {
       if (flags.DEBUG) {
         console.log('Client error. Missing user ID.');
       }
