@@ -19,10 +19,10 @@ const MoodController = (flags) => {
     content = 'Mood value is missing from request.';
 
     // Need the mood.
-    if (!req.body.mood) {
+    if (!req.body || !req.body.mood) {
       if (flags.DEBUG) {
         console.log('Client error. Missing mood value.');
-        content = `DEBUG: ${content}`;
+        content = `DEBUG: ${content} ${req.body}`;
       }
 
       return res.status(400).json({
@@ -113,7 +113,7 @@ const MoodController = (flags) => {
     content = 'Mood ID is missing from request.';
 
     // Need the mood.
-    if (!req.body._id) {
+    if (!req.body || !req.body._id) {
       if (flags.DEBUG) {
         console.log('Client error. Missing mood ID.');
         content = `DEBUG: ${content}`;
@@ -155,7 +155,8 @@ const MoodController = (flags) => {
   const getMoods = (req, res) => {
     // Error check for missing user ID.
     content = 'Cannot query for moods without user ID.';
-    if (!req.body.userID) {
+    
+    if (!req.body || !req.body.userID) {
       if (flags.DEBUG) {
         console.log('Client error. Missing user ID.');
         content = `DEBUG: ${content}`;
