@@ -7,13 +7,19 @@ import Day from './Day';
 import Visual from './Visual.js';
 import Statistics from './Statistics';
 import {getMoods} from '../actions/getActions';
+import {withCookies, Cookies} from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 
 class Home extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
   constructor(props){
-    super(props);
 
+    super(props);
+    const {cookies} = props;
     this.state = {
       username: this.props.username,
       daily: UserProfile.getDaily(),
@@ -24,7 +30,8 @@ class Home extends Component {
       sleep: '',
       meals: '',
       stats: false,
-      userProfile: this.props.userProfile
+      userProfile: this.props.userProfile,
+      data: ''
     }
 
     this.setState = this.setState.bind(this);
@@ -36,9 +43,12 @@ class Home extends Component {
 
   checkDailyForm(){
     if(this.state.daily === false){
-      return(<Daily setDaily={this.setDaily} username={this.state.username}/>);
+      return(<Daily setDaily={this.setDaily} cookies={this.props.cookies} username={this.state.username}/>);
     }else{
       UserProfile.setDaily(true);
+      this.state.data = getMoods(this.props.cookies.get('id'));
+       console.log(this.state.data);
+
     }
   }
 
@@ -55,6 +65,8 @@ class Home extends Component {
   }
 
   createDays(days){
+    this.state.data = getMoods(this.props.cookies.get('id'));
+       console.log(this.state.data);
     if(this.state.daily === true) {
       var Days = [];
       let date = '';
@@ -145,8 +157,9 @@ class Home extends Component {
       sleep : "2"
     }
     ];
-    console.log(UserProfile.getName());
-    let data = getMoods(UserProfile.getId());
+
+    console.log(this.props.cookies.get('id'));
+    let data = getMoods(this.props.cookies.get('id'));
     console.log(data);
     var caffeine = [
       ["Date", "Caffeine"],

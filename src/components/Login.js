@@ -103,7 +103,7 @@ class Login extends Component {
     if(this.state.goBack === true){
       return(<Open />);
     }else if(this.state.submitted === true){
-      return(<Home username={this.state.username}/>);
+      return(<Home cookies={this.props.cookies} username={this.state.username}/>);
     }else{
       return(
         <div className="main">

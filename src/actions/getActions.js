@@ -22,7 +22,7 @@ export function checkUsername() {
 }
 
 export function getMoods(id) {
-    let url = 'http://hmf.student.rit.edu:1080//getMood?userId=' + id;
+    let url = 'http://hmf.student.rit.edu:1080/getMoods?userId=' + id;
     return fetch(url, {
         method: 'GET',
         headers: {
