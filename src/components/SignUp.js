@@ -82,15 +82,27 @@ class SignUp extends Component {
  }
 
  handleFirstName(value){
-    this.setState({
-      first_name: value
-    });
+  if (value.length === 0){
+    document.getElementById('first_nameError').style.display = 'block';
+    return false;
+  }
+  else {
+    document.getElementById('first_nameError').style.display = 'none';
+    this.setState({first_name: value})
+    return true;
+  }
  }
 
  handleLastName(value){
-    this.setState({
-      last_name: value
-    })
+  if (value.length === 0){
+    document.getElementById('last_nameError').style.display = 'block';
+    return false;
+  }
+  else {
+    document.getElementById('last_nameError').style.display = 'none';
+    this.setState({last_name: value})
+    return true;
+  }
  }
 
   render() {
@@ -108,11 +120,13 @@ class SignUp extends Component {
           <div>
             <div className="question">
               <h3>First Name</h3>
+              <div className="error" id="first_nameError">Please enter a first name</div>
               <input type="text" name="first_name" onChange={e => this.handleFirstName(e.target.value)} />
             </div>
             <div className="question">
               <h3>Last Name</h3>
-              <input type="text" name="first_name" onChange={e => this.handleLastName(e.target.value)} />
+              <div className="error" id="last_nameError">Please enter a username</div>
+              <input type="text" name="last_name" onChange={e => this.handleLastName(e.target.value)} />
             </div>
           </div>
           <h3>Email Address</h3>
