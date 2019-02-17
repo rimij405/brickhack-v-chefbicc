@@ -14,7 +14,7 @@ const middleware = (flags) => {
 
     // For prod.
     if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect(`https://${req.hostname}${req.url}`);
+      return res.redirect(`https://${req.get('host')}${req.originalUrl}:${req.port}`);
     }
     return next();
   };
