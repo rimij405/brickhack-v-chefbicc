@@ -3,7 +3,7 @@ const models = require('../models');
 
 // I hate this
 function getMissingCreateUserContent(flags, body) {
-  if (!body.username) return { val: 'username', error: flags.ERRORS.missing.userName };
+  if (!body.username) return { val: 'username', error: flags.ERRORS.missing.username };
   if (!body.firstName) return { val: 'firstName', error: flags.ERRORS.missing.firstName };
   if (!body.lastName) return { val: 'lastName', error: flags.ERRORS.missing.lastName };
   if (!body.password) return { val: 'password', error: flags.ERRORS.missing.password };
@@ -26,11 +26,22 @@ const UserController = (flags) => {
 
   // Need username, firstname, lastname, email, pw
   const createUser = (req, res) => {
-    const problem = getMissingCreateUserContent(flags, req.body);
+
+    // Cast to string to avoid security issues.
+    const request = { body: {} };
+    request.body.username = `${req.body.username}`;
+    request.body.firstName = `${req.body.firstName}`;
+    request.body.lastName = `${req.body.lastName}`;
+    request.body.email = `${req.body.email}`;    
+    request.body.password = `${req.body.password}`;
+
+    const problem = getMissingCreateUserContent(flags, request.body);
+  
     // Handle issues with missing information
     if (problem) {
       if (flags.DEBUG) {
         console.log(`Client error. Missing value: ${problem.val}`);
+        console.dir(problem);
       }
 
       return res.status(400).json({
@@ -43,53 +54,63 @@ const UserController = (flags) => {
       });
     }
 
-    const userData = {
-      username: req.body.username,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      password: req.body.password,
-      email: req.body.email,
-    };
+    return User.UserModel.generateHash(
+      request.body.password,
+      (salt, hash) => {
 
-    // Construct user instance
-    const newUserInstance = new User.UserModel(userData);
-
-    // Create user in the DB
-    const userPromise = newUserInstance.save();
-
-    // Handle saving the user entry
-    userPromise.then(
-      () => res.status(201).json({ status: 'ok' }),
-    );
-
-    // Handle errors
-    userPromise.catch((err) => {
-      if (flags.DEBUG) {
-        console.log(`Client error: ${err}.`);
-      }
-
-      if (err.code === 11000) {
-        return res.status(400).json({
-          api: flags.API_METADATA,
-          error: {
-            code: flags.ERRORS.alreadyExists.user,
-            name: 'Duplicate User.',
-            message: 'User entry already exists.',
-          },
+        const userData = {
+          username: request.body.username,
+          firstName: request.body.firstName,
+          lastName: request.body.lastName,
+          salt,
+          password: hash,
+          email: request.body.email,
+        };
+    
+        // Construct user instance
+        const newUserInstance = new User.UserModel(userData);
+    
+        // Create user in the DB
+        const userPromise = newUserInstance.save();
+    
+        // Handle saving the user entry
+        userPromise.then(
+          () => res.status(201).json({ 
+            status: 'ok',
+            user: User.UserModel.toAPI(newUserInstance)
+          }),
+        );
+    
+        // Handle errors
+        userPromise.catch((err) => {
+          if (flags.DEBUG) {
+            console.log(`Client error: ${err}.`);
+          }
+    
+          if (err.code === 11000) {
+            return res.status(400).json({
+              api: flags.API_METADATA,
+              error: {
+                code: flags.ERRORS.alreadyExists.user,
+                name: 'Duplicate User.',
+                message: 'User entry already exists.',
+              },
+            });
+          }
+    
+          return res.status(400).json({
+            api: flags.API_METADATA,
+            error: {
+              code: flags.ERRORS.unknownError,
+              name: 'Unknown Error',
+              message: 'An unknown error occured while attempting to create the user.',
+            },
+          });
         });
+    
+        return userPromise;
       }
-
-      return res.status(400).json({
-        api: flags.API_METADATA,
-        error: {
-          code: flags.ERRORS.unknownError,
-          name: 'Unknown Error',
-          message: 'An unknown error occured while attempting to create the user.',
-        },
-      });
-    });
-
-    return userPromise;
+    );   
   };
 
   // For this request we ONLY need the id- because
@@ -115,7 +136,7 @@ const UserController = (flags) => {
     // "mongodb.users.deleteOne(uid)"
 
     // Call helper method and delete
-    return User.findByIdAndDelete(req.body._id, (err) => {
+    return User.UserModel.findByIdAndDelete(req.body._id, (err) => {
       if (err) {
         if (flags.Debug) {
           console.log(`Client error: ${err}`);
