@@ -62,7 +62,10 @@ const MoodController = (flags) => {
 
     // Handle saving the mood entry.
     moodPromise.then(
-      () => res.status(201).json({ status: 'ok' }),
+      () => res.status(201).json({ 
+        api: flags.API_METADATA,
+        status: 'ok'
+       }),
     );
 
     // Handle errors.
@@ -132,7 +135,10 @@ const MoodController = (flags) => {
         });
       }
 
-      return res.status(204).json({ status: 'ok' });
+      return res.status(204).json({        
+          api: flags.API_METADATA,
+          status: 'ok'
+        });
     });
   };
 

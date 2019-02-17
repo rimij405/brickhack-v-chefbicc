@@ -75,7 +75,8 @@ const UserController = (flags) => {
     
         // Handle saving the user entry
         userPromise.then(
-          () => res.status(201).json({ 
+          () => res.status(201).json({
+            api: flags.API_METADATA,
             status: 'ok',
             user: User.UserModel.toAPI(newUserInstance)
           }),
@@ -151,7 +152,10 @@ const UserController = (flags) => {
         });
       }
 
-      return res.status(204).json({ status: 'ok' });
+      return res.status(204).json({ 
+        api: flags.API_METADATA,
+        status: 'ok'
+      });
     });
   };
 
