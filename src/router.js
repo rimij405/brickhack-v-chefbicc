@@ -4,27 +4,25 @@ const middleware = require('./middleware');
 
 // Router to export.
 const router = (app, flags) => {
-    
-    // Get middleware.
-    const mid = middleware(flags);
-    const con = controllers(flags);
+  // Get middleware.
+  const mid = middleware(flags);
+  const con = controllers(flags);
 
-    if(flags.DEBUG){
-        console.log("Creating routes...");
-    }
+  if (flags.DEBUG) {
+    console.log('Creating routes...');
+  }
+  con.Mood
+  // ROOT: Returns a 404 error.
+    .app.get('/', mid.requiresSecure, con.noRootQuery);
 
-    // ROOT: Returns a 404 error.
-    app.get('/', mid.requiresSecure, con.noRootQuery);
-
-    // ACTIONS:
-    // // Login.
-    // // Sign up.
-    // // Get a user.
-    // // Get a user's moods.
-    // // Create mood.
-    // // Delete mood.
-    // // Delete a user.
-
+  // ACTIONS:
+  // // Login.
+  // // Sign up.
+  // // Get a user.
+  app.get('/getMoods', mid.requiresSecure, con.Mood.getMoods);
+  app.post('/createMood', mid.requiresSecure, con.Mood.createMood);
+  app.post('/deleteMood', mid.requiresSecure, con.Mood.deleteMood);
+  // // Delete a user.
 };
 
 // Export the router.

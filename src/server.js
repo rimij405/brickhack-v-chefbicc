@@ -10,15 +10,19 @@ const flags = {
   PORT: (process.env.PORT || process.env.NODE_PORT || 3001),
   MONGODB_URI: (process.env.MONGODB_URI || 'mongodb://localhost/moodswing'),
   ERRORS: {
-      noRootQuery: "E001",
-      missingMood: "E002",
-      missingUser: "E003",
-      moodAlreadyExists: "E004",
-      userAlreadyExists: "E005",
+    unknownError: 'E000',
+    noRootQuery: 'E001',
+    missingMood: 'E002',
+    missingUser: 'E003',
+    moodAlreadyExists: 'E004',
+    userAlreadyExists: 'E005',
+    missingMoodID: 'E006',
+    missingUserID: 'E007',
+
   },
   API_METADATA: {
-      application: "MS",
-      version: (process.env.API_VERSION || 1),
+    application: 'MS',
+    version: (process.env.API_VERSION || 1),
   },
 };
 
@@ -27,10 +31,9 @@ router(app, flags);
 
 // Return info back to console.
 app.listen(flags.PORT, (err) => {
-    if(err) { throw err; }
-    if(flags.DEBUG) { console.log(`API server on port "${flags.PORT}".`); }
+  if (err) { throw err; }
+  if (flags.DEBUG) { console.log(`API server on port "${flags.PORT}".`); }
 });
-
 
 
 /*

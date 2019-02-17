@@ -4,15 +4,14 @@ const Mood = require('./Mood.js');
 
 // Prepare the model objects to return.
 const models = (flags) => {
+  if (flags.DEBUG) {
+    console.log('Preparing models...');
+  }
 
-    if(flags.DEBUG) {
-        console.log("Preparing models...");
-    }
-
-    return {
-        User,
-        Mood
-    };
+  return {
+    User,
+    Mood,
+  };
 };
 
 module.exports = models;

@@ -6,7 +6,6 @@
 // Require statements.
 const crypto = require('crypto');
 const mongoose = require('mongoose');
-const mood = require('./Mood.js'); // User has Moods
 
 // Set promise.
 mongoose.Promise = global.Promise;
@@ -50,7 +49,7 @@ const UserSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Mood',
-    }
+    },
   ],
   createdDate: {
     type: Date,
