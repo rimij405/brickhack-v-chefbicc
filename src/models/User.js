@@ -133,7 +133,7 @@ UserSchema.statics.authenticate = (
     }
 
     if (!doc) {
-      return callback();
+      return callback(true, null);
     }
 
     return validatePassword(doc, password, (result) => {
@@ -141,7 +141,7 @@ UserSchema.statics.authenticate = (
         return callback(null, doc);
       }
 
-      return callback();
+      return callback(null, null);
     });
   },
 );
