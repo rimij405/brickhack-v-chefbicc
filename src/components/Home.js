@@ -23,7 +23,8 @@ class Home extends Component {
       exercise: '',
       sleep: '',
       meals: '',
-      stats: false
+      stats: false,
+      userProfile: this.props.userProfile
     }
 
     this.setState = this.setState.bind(this);
@@ -144,7 +145,9 @@ class Home extends Component {
       sleep : "2"
     }
     ];
-    let data = getMoods(UserProfile.getId);
+    console.log(UserProfile.getName());
+    let data = getMoods(UserProfile.getId());
+    console.log(data);
     var caffeine = [
       ["Date", "Caffeine"],
       ['02/16/2019', 8 ],

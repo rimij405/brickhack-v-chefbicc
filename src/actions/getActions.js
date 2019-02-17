@@ -34,7 +34,6 @@ export function getMoods(id) {
             'X-Debug-Mode': 'true'
 
         },
-        mode: 'no-cors',
     }).then(res => {
         console.log(res);
         return res;
@@ -42,8 +41,6 @@ export function getMoods(id) {
             console.log(err);
             return err;
         });
-    
-    
 }
 
 export function createUser(data, callback) {

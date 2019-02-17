@@ -1,4 +1,5 @@
 var UserProfile = (function() {
+
   var full_name = "";
   var daily = false;
   var id = '';

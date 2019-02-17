@@ -4,18 +4,25 @@ import '../App.css';
 import Open from '../components/Open.js';
 import Home from '../components/Home.js';
 import {logIn} from '../actions/getActions';
+import {instanceOf} from 'prop-types';
+import {withCookies, Cookies} from 'react-cookie';
+
 import User from './User';
 
 class Login extends Component {
-  constructor(){
-    super();
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+  constructor(props){
+    super(props);
+    const {cookies} = props;
     this.state = {
       goBack : false,
       username : '',
       password : '',
-      submitted : false
+      submitted : false,
+      id: cookies.get('id') || ''
     }
-
     this.setState = this.setState.bind(this);
     this.checkResponse = this.checkResponse.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -54,7 +61,9 @@ class Login extends Component {
           submitted: true
         });
         console.log(payload.user._id);
+        cookies.set('id', payload.user._id, {path: '/'});
         UserProfile.setId(payload.user._id);
+        console.log(UserProfile.getId());
       } 
       else
       {
@@ -117,4 +126,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withCookies(Login);
