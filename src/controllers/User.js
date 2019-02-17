@@ -177,7 +177,7 @@ const UserController = (flags) => {
     }
 
     return User.UserModel.findByUsername(req.query.username, (err, docs) => {
-      if (err) {
+      if (err || !docs) {
         if (flags.DEBUG) {
           console.log(`Client error: ${err} for username: ${req.query.username}`);
         }

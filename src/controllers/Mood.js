@@ -161,7 +161,7 @@ const MoodController = (flags) => {
 
 
     return Mood.MoodModel.findByOwner(req.query.userId, (err, docs) => {
-      if (err) {
+      if (err || !docs) {
         if (flags.DEBUG) {
           console.log(`Client error: ${err} for ID: ${req.query.userId}`);
         }
