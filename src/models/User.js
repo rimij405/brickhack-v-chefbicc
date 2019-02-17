@@ -94,6 +94,14 @@ UserSchema.statics.findByUsername = (name, callback) => {
   return UserModel.findOne(search, callback);
 };
 
+UserSchema.statics.findByIdAndDelete = (userId, callback) => {
+  const search = {
+    _id: convertId(userId),
+  };
+
+  return UserModel.deleteOne(search).exec(callback);
+};
+
 UserSchema.statics.generateHash = (password, callback) => {
   const salt = crypto.randomBytes(saltLength);
 
