@@ -26,10 +26,7 @@ const UserController = (flags) => {
 
   // Need username, firstname, lastname, email, pw
   const createUser = (req, res) => {
-    const problem = getMissingCreateUserContent(req.body);
-
-    let content = 'User value missing from request.';
-
+    const problem = getMissingCreateUserContent(flags, req.body);
     // Handle issues with missing information
     if (problem) {
       if (flags.DEBUG) {
@@ -41,7 +38,7 @@ const UserController = (flags) => {
         error: {
           code: problem.error,
           name: 'Missing user data.',
-          message: content,
+          message: 'User value missing from request.',
         },
       });
     }
@@ -81,13 +78,10 @@ const UserController = (flags) => {
   // a user is already logged in when they want
   // to delete themselves
   const deleteUser = (req, res) => {
-    let content = 'UserID missing from request.';
-
     // Need the user
     if (!req.body || !req.body._id) {
       if (flags.DEBUG) {
         console.log('Client error. Missing user ID.');
-        content = `Debug: ${content}`;
       }
 
       return res.status(400).json({
@@ -95,7 +89,7 @@ const UserController = (flags) => {
         error: {
           code: flags.ERRORS.missing.userID,
           name: 'Missing User ID.',
-          message: content,
+          message: 'UserID missing from request.',
         },
       });
     }
@@ -105,17 +99,15 @@ const UserController = (flags) => {
     // Call helper method and delete
     return User.UserModel.findByIdAndDelete(req.body._id, (err) => {
       if (err) {
-        content = `An error occured while deleting User ${req.body._id}`;
         if (flags.Debug) {
           console.log(`Client error: ${err}`);
-          content = `DEBUG: ${content}`;
         }
         return res.status(400).json({
           api: flags.API_METADATA,
           error: {
             code: flags.ERRORS.unknownError,
             name: 'User deletion error.',
-            message: content,
+            message: `An error occured while deleting User ${req.body._id}`,
           },
         });
       }
@@ -124,6 +116,53 @@ const UserController = (flags) => {
     });
   };
 
-  //    const getUser() {
-  //    }
+  const getUser = (req, res) => {
+    // Error check for missing username.    
+    if (!req.query || !req.query.username) {
+      if (flags.DEBUG) {
+        console.log('Client error. Missing username.');
+      }
+
+      return res.status(400).json({
+        api: flags.API_METADATA,
+        error: {
+          code: flags.ERRORS.missing.username,
+          name: 'Missing Username.',
+          message: 'Cannot query for moods without user name.',
+        },
+      });
+    }
+
+
+    return User.UserModel.findByUsername(req.query.username, (err, docs) => {
+      if (err) {
+        if (flags.DEBUG) {
+          console.log(`Client error: ${err} for username: ${req.query.username}`);
+        }
+
+        return res.status(400).json({
+          api: flags.API_METADATA,
+          error: {
+            code: flags.ERRORS.unknownError,
+            name: 'Mood Query Error.',
+            message: `Error when querying for user by username ${req.query.username}.`,
+          },
+        });
+      }
+
+      return res.status(200).json({
+        api: flags.API_METADATA,
+        models: docs,
+      });
+    });
+  };
+
+  return {
+    createUser,
+    deleteUser,
+    getUser,
+  };
+
 };
+
+module.exports = UserController;

@@ -18,7 +18,7 @@ const flags = {
     missing: {
       mood: 'E101',
       user: 'E102',
-      userName: 'E103',
+      username: 'E103',
       firstName: 'E104',
       lastName: 'E105',
       password: 'E106',
