@@ -31,6 +31,7 @@ class Login extends Component {
     console.log(response);
 
     UserProfile.setName(this.state.username);
+    UserProfile.setDaily(false);
 
     this.setState({
       submitted: true

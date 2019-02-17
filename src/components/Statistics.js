@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import Visual from './Visual';
+import UserProfile from '../UserProfile';
+import Home from './Home';
 
 class Statistics extends Component {
+
+  constructor(){
+    super();
+    this.state = {
+      goBack: false
+    }
+  }
 
   createTable(body, value){
     var Caffeine = [];
@@ -49,7 +58,11 @@ class Statistics extends Component {
 
   }
 
+
   render(){
+    if(this.state.goBack === true){
+      return <Home username={UserProfile.getName()}/>
+    }
     return(
 
       <div className="main">
@@ -57,6 +70,7 @@ class Statistics extends Component {
         {this.createTable(this.props.body, "caffeine")}
         {this.createTable(this.props.body, "exercise")}
         {this.createTable(this.props.body, "mood")}
+        <button onClick={e => this.setState({goBack: true}) }> Go Back </button>
       </div>
     );
   }

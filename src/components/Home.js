@@ -14,7 +14,7 @@ class Home extends Component {
     super(props);
     this.state = {
       username: this.props.username,
-      daily: false,
+      daily: UserProfile.getDaily(),
       date: '',
       mood: '',
       caffeine: '',
@@ -32,6 +32,8 @@ class Home extends Component {
   checkDailyForm(){
     if(this.state.daily === false){
       return(<Daily setDaily={this.setDaily} username={this.state.username}/>);
+    }else{
+      UserProfile.setDaily(true);
     }
   }
 
