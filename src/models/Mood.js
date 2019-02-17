@@ -27,6 +27,11 @@ const MoodSchema = new mongoose.Schema({
     required: false,
     unique: false,
   },
+  numberOfMeals:{
+    type: String,
+    required: false,
+    unique: false,
+  },
   hoursOfSleep:{
     type: String,
     required: false,

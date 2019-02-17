@@ -67,6 +67,9 @@ const MoodController = (flags) => {
     if (req.body.hoursOfExercise) {
       moodData.hoursOfExercise = req.body.hoursOfExercise;
     }
+    if (req.body.numberOfMeals) {
+      moodData.numberOfMeals = req.body.numberOfMeals;
+    }
 
     // Construct instance.
     const newMoodInstance = new Mood.MoodModel(moodData);
