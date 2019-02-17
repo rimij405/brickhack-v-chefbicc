@@ -22,6 +22,21 @@ const MoodSchema = new mongoose.Schema({
     required: true,
     unique: false,
   },
+  cupsOfCoffee:{
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  hourOfSleep:{
+    type: Number,
+    required: false,
+    unique: false,
+  },
+  hoursOfExercise:{
+    type: Number,
+    required: false,
+    unique: false
+  },
   lastUpdated: {
     type: Date,
     default: Date.now,
