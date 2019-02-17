@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = require('./router.js');
 const mongoose = require('mongoose');
+const cors = require('cors');
 // const models = require('./models');
 
 const app = express();
@@ -48,6 +49,9 @@ mongoose.connect(
     useNewUrlParser: true
   }
 );
+
+// Set up cors.
+app.use(cors());
 
 // Set up the body parser to support URL encoded and JSON payloads.
 app.use(bodyParser.urlencoded({ extended: false }));
