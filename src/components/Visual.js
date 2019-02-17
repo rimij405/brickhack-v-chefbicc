@@ -13,7 +13,7 @@ class Visual extends Component{
         <Chart
           width={'500px'}
           height={'200px'}
-          chartType="Histogram"
+          chartType="PieChart"
           loader={<div>Loading Chart</div>}
           data={this.props.data}
           options={{

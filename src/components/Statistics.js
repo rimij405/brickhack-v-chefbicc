@@ -32,10 +32,6 @@ class Statistics extends Component {
           if(values[0] === "caffeine"){
             values[1] = values[1].replace(" oz", "");
           }
-          if(values[0] === "mood"){
-            Caffeine.push(values[1]);
-            break;
-          }
           Caffeine.push(parseInt(values[1]));
         }
         if(values[0] === 'date'){
@@ -58,6 +54,36 @@ class Statistics extends Component {
 
   }
 
+  createPieChart(body, value){
+    let Data = [];
+    let happyCount = 0;
+    let sadCount = 0;
+    Data.push(["Dates", value.charAt(0).toUpperCase() + value.substring(1, value.length)]);
+    let length = body.length;
+    for (let i = 0; i < length; i++) {
+      let response = JSON.stringify(body[i]);
+      let responses = response.split(",");
+      for (let j = 0; j < responses.length; j++) {
+        let values = responses[j].split(":");
+        console.log(values);
+        values[0] = values[0].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
+        values[1] = values[1].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
+
+        if(values[1] === 'happy'){
+          happyCount ++;
+        }
+        if(values[1] === 'sad'){
+          sadCount++;
+        }
+      }
+    }
+
+    Data.push(['Happy', happyCount]);
+    Data.push(['Sad', sadCount]);
+    console.log(Data);
+    return(<Visual data={Data} title={value} />);
+
+  }
 
   render(){
     if(this.state.goBack === true){
@@ -69,7 +95,7 @@ class Statistics extends Component {
         <h1>Statistics</h1>
         {this.createTable(this.props.body, "caffeine")}
         {this.createTable(this.props.body, "exercise")}
-        {this.createTable(this.props.body, "mood")}
+        {this.createPieChart(this.props.body, "mood")}
         <button onClick={e => this.setState({goBack: true}) }> Go Back </button>
       </div>
     );
