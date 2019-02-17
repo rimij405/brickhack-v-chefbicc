@@ -6,6 +6,7 @@ import User from './User';
 import Day from './Day';
 import Visual from './Visual.js';
 import Statistics from './Statistics';
+import {getMoods} from '../actions/getActions';
 
 
 class Home extends Component {
@@ -143,7 +144,7 @@ class Home extends Component {
       sleep : "2"
     }
     ];
-
+    let data = getMoods(UserProfile.getId);
     var caffeine = [
       ["Date", "Caffeine"],
       ['02/16/2019', 8 ],
