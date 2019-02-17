@@ -83,7 +83,7 @@ class Daily extends Component {
 
   render() {
     return(
-      <div className="main">
+      <div className="daily">
 
 
         <h1>How are you feeling today?</h1>

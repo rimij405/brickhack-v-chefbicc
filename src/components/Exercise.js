@@ -7,7 +7,7 @@ class Exercise extends Component {
 
     render(){
         return(
-          <div className="main">
+          <div className="question">
             <h1>How many Minutes of Exercise?</h1>
             <select id="minutesOfExercise" type="text" onChange={e => this.props.minutesChanged({minutes: e.target.value})}>
             <option> &lt; 30 </option>

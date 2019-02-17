@@ -44,9 +44,9 @@ class Login extends Component {
       return(<Home username={this.state.username}/>);
     }else{
       return(
-        <div className="main">
-          <h1>Login</h1>
+        <div>
           <form className="main" onSubmit={this.handleFormSubmit}>
+            <h1>Login</h1>
             <h3>Username</h3>
             <input type="text" name="username" onChange={e => this.setState({username: e.target.value})}/>
             <h3>Password</h3>

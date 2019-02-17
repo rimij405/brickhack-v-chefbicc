@@ -7,7 +7,7 @@ class Caffeine extends Component{
 
   render(){
     return(
-      <div className="main">
+      <div className="question">
         <h1>How many Ounces of Caffeine?</h1>
         <select id="cupsOfCoffee" type="text" onChange={e => this.props.cupsChanged({cups: e.target.value})}>
         <option>8 oz</option>

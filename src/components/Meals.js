@@ -7,7 +7,7 @@ class Meals extends Component {
 
     render(){
         return(
-          <div className="main">
+          <div className="question">
             <h1>How Many Meals Did You Have Today??</h1>
             <select id="meals" type="text" onChange={e => this.props.mealsChanged({meals: e.target.value})}>
             <option>0</option>     

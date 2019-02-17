@@ -15,8 +15,9 @@ class Day extends Component{
 
   render(){
     return(
-      <div className="main">
-        <p>{this.state.date}</p>
+      <div className="day">
+        <h2>{this.state.date}</h2>
+        <hr />
         <p>{this.state.mood}</p>
         <p>{this.state.caffeine}</p>
         <p>{this.state.exercise}</p>

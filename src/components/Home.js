@@ -37,44 +37,54 @@ class Home extends Component {
   }
 
   createDays(days){
-    let date = '';
-    let mood = '';
-    let exercise = '';
-    let caffeine = '';
-    let length = days.length;
-    for(let i=0; i<length; i++){
-      let response = JSON.stringify(days[i]);
-      let responses = response.split(",");
-      for(let j=0; j<responses.length; j++){
-        let values = responses[j].split(":");
-        console.log(values);
-        values[0] = values[0].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
-        values[1] = values[1].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
+    if(this.state.daily === true) {
+      var Days = [];
+      let date = '';
+      let mood = '';
+      let exercise = '';
+      let caffeine = '';
+      let length = days.length;
+      for (let i = 0; i < length; i++) {
+        let response = JSON.stringify(days[i]);
+        let responses = response.split(",");
+        for (let j = 0; j < responses.length; j++) {
+          let values = responses[j].split(":");
+          console.log(values);
+          values[0] = values[0].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
+          values[1] = values[1].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
 
-        console.log(values[0]);
-        switch(values[0]){
-          case("date"):
-            console.log(values[1]);
-            date = values[1];
-            break;
+          console.log(values[0]);
+          switch (values[0]) {
+            case("date"):
+              console.log(values[1]);
+              date = values[1];
+              break;
 
-          case("mood"):
-            mood = values[1];
-            break;
+            case("mood"):
+              mood = values[1];
+              break;
 
-          case("caffeine"):
-            caffeine = values[1];
-            break;
+            case("caffeine"):
+              caffeine = values[1];
+              break;
 
-          case("exercise"):
-            exercise = values[1];
-            break;
+            case("exercise"):
+              exercise = values[1];
+              break;
+          }
+
         }
+        console.log(responses);
+        Days.push(<Day date={date} mood={mood} caffeine={caffeine} exercise={exercise}/>);
 
       }
-      console.log(responses);
-      return(<Day date={date} mood={mood} caffeine={caffeine} exercise={exercise} />);
+      return Days;
+    }
+  }
 
+  displayHead(){
+    if(this.state.daily === true) {
+      return (<h1 className="history">History</h1>)
     }
   }
 
@@ -100,11 +110,15 @@ class Home extends Component {
     ];
 
     return(
-      <div className="main">
+      <div className="home">
         <User username={this.state.username} />
-        <h1>Welcome!</h1>
         {this.checkDailyForm()}
-        {this.createDays(body)}
+        <div className={"dayHolder"}>
+          {this.displayHead()}
+          {this.createDays(body)}
+        </div>
+
+
 
 
       </div>
