@@ -10,6 +10,7 @@ import {getMoods} from '../actions/getActions';
 import {withCookies, Cookies} from 'react-cookie';
 import { instanceOf } from 'prop-types';
 
+let Days = [];
 
 class Home extends Component {
   static propTypes = {
@@ -69,7 +70,6 @@ class Home extends Component {
       return (status === "ok");
     };
 
-    var Days = [];
     let date = '';
     let mood = '';
     let exercise = '';
@@ -77,52 +77,66 @@ class Home extends Component {
     let sleep = '';
     let meals = '';
 
-    console.log(value);
-
     value.then(function(response){
-      console.log(response.moods);
       let length = response.moods.length;
+      let Days = [length];
       for(let i=0; i<length; i++){
         Days.push(<Day key={i} date={response.moods[i].lastUpdated} mood={response.moods[i].mood} caffeine={response.moods[i].ouncesOfCoffee} exercise={response.moods[i].hoursOfExercise} sleep={response.moods[i].hourso}
-                       meals={response.moods[i].numberofMeals}/>);
+                       meals={response.moods[i].numberofMeals} />);
+        console.log(Days[i]);
       }
 
+      _this.props.cookies.set('days', Days, {path: '/'});
+      return Days;
+      console.log(Days);
+
+
     });
-    console.log(Days);
-    _this.props.cookies.set('days', Days, {path: '/'});
-    return Days;
   }
 
-  createDays(days){
-
+  createDays(data){
     if(this.state.daily === true) {
-      let data = getMoods(this.props.cookies.get('id'), this.checkResponse);
-      /*
       var Days = [];
       let date = '';
       let mood = '';
       let exercise = '';
       let caffeine = '';
-      let sleep = '';
-      let meals = '';
-      console.log(data);
-      let parsed = data;
-      let index = parsed.indexOf("_id");
-      let i = 0;
-      let response = parsed.substring(index, parsed.length);
-      while(response.length > 0) {
-        console.log(response);
-        break;
-        console.log(response);
-        Days.push(<Day key={i} date={date} mood={mood} caffeine={caffeine} exercise={exercise} sleep={sleep}
-                       meals={meals}/>);
+      let length = data.length;
+      for (let i = 0; i < length; i++) {
+        let response = JSON.stringify(data[i]);
+        let responses = response.split(",");
+        for (let j = 0; j < responses.length; j++) {
+          let values = responses[j].split(":");
+          console.log(values);
+          values[0] = values[0].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
+          values[1] = values[1].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
 
-        if (Days.length === 0) {
-          return (<h2>Sorry! You have no entries yet.</h2>)
+          console.log(values[0]);
+          switch (values[0]) {
+            case("date"):
+              console.log(values[1]);
+              date = values[1];
+              break;
+
+            case("mood"):
+              mood = values[1];
+              break;
+
+            case("caffeine"):
+              caffeine = values[1];
+              break;
+
+            case("exercise"):
+              exercise = values[1];
+              break;
+          }
+
         }
+        console.log(responses);
+        Days.push(<Day key={i} date={date} mood={mood} caffeine={caffeine} exercise={exercise}/>);
+
       }
       return Days;
-      */
     }
   }
 
@@ -168,14 +182,12 @@ class Home extends Component {
       return(<Statistics body={body}/>)
     }else {
       return (
-
         <div className="home">
           <User setStats={this.setStats} username={this.state.username} data={body}/>
           {this.checkDailyForm()}
           <div className={"dayHolder"}>
             {this.displayHead()}
             {this.createDays(body)}
-            {this.props.cookies.get('days')}
           </div>
 
 

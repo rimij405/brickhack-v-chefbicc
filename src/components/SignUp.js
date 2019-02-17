@@ -64,19 +64,38 @@ class SignUp extends Component {
 
  }
 
- checkResponse(value){
-    console.log(value);
-    if(value.status === 'ok'){
-      this.setState({
-        submitted: true
-      })
-      console.log(value.user._id);
-      UserProfile.setId(value.user._id);
-    }else{
-      document.getElementById('usernameTaken').style.display = 'block';
-    }
+  checkResponse(value){
 
- }
+    const _this = this;
+
+    const isValid = (status) => {
+      return (status === "ok");
+    };
+
+    value.then(function(response){
+      console.log(response);
+      return response;
+    }).then(function(blob){
+      let payload = blob;
+      console.dir(payload);
+
+      // Perform functions here.
+      if(payload.status === 'ok'){
+        _this.setState({
+          submitted: true
+        });
+        console.log(payload.user._id);
+        _this.props.cookies.set('id', payload.user._id, {path: '/'});
+        UserProfile.setId(payload.user._id);
+        console.log(UserProfile.getId());
+      }
+      else
+      {
+        document.getElementById('usernameTaken').style.display = 'block';
+      }
+
+    });
+  }
 
 
  handleUsername(value) {

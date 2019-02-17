@@ -34,6 +34,8 @@ class Login extends Component {
       password: this.state.password
     }
 
+    UserProfile.setName(this.state.username);
+
     logIn(post, this.checkResponse);
     //check to see if user and pass are valid combo on server
 
@@ -55,6 +57,7 @@ class Login extends Component {
       let payload = blob;
       console.dir(payload);
 
+      console.log(payload);
       // Perform functions here.
       if(isValid(payload.status)){
         _this.setState({
