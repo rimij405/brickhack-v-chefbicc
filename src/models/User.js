@@ -46,12 +46,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  moods: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Mood',
-    },
-  ],
   createdDate: {
     type: Date,
     default: Date.now,
@@ -88,7 +82,6 @@ UserSchema.statics.findById = (userId, callback) => {
     _id: 1,
     username: 1,
     email: 1,
-    moods: 1,
     firstName: 0,
     lastName: 0,
     salt: 0,

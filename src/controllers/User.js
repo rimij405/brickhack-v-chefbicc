@@ -95,7 +95,6 @@ const UserController = (flags) => {
         status: "ok",
         user: {
           _id: doc._id,
-          moods: doc.moods,
           username: doc.username
         }
       });
@@ -278,7 +277,6 @@ const UserController = (flags) => {
         status: "ok",
         user: {
           _id: doc._id,
-          moods: doc.moods,
           username: doc.username
         }
       });
