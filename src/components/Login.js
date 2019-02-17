@@ -15,6 +15,8 @@ class Login extends Component {
       submitted : false
     }
 
+    this.setState = this.setState.bind(this);
+    this.checkResponse = this.checkResponse.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 

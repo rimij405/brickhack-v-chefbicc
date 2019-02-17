@@ -43,7 +43,7 @@ export function createUser(data, callback) {
 }
 
 export function logIn(data, callback) {
-    return fetch('http://hmf.student.rit.edu:1080/logIn', {
+    return fetch('http://hmf.student.rit.edu:1080/loginUser', {
         method: 'POST',
         headers: {
                     'Access-Control-Allow-Credentials' : true,
