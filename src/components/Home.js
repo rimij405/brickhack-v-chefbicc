@@ -13,17 +13,6 @@ class Home extends Component {
   constructor(props){
     super(props);
 
-    var body = [
-      {
-        username : 'micheal',
-        mood : 'true',
-        caffeine : 'true',
-        exercise : 'true',
-        sleep : 'false',
-        meals : 'false'
-      }
-    ]
-
     this.state = {
       username: this.props.username,
       daily: UserProfile.getDaily(),
@@ -70,6 +59,8 @@ class Home extends Component {
       let mood = '';
       let exercise = '';
       let caffeine = '';
+      let sleep = '';
+      let meals = '';
       let length = days.length;
       for (let i = 0; i < length; i++) {
         let response = JSON.stringify(days[i]);
@@ -98,11 +89,20 @@ class Home extends Component {
             case("exercise"):
               exercise = values[1];
               break;
+
+            case("meals"):
+              meals = values[1];
+              break;
+
+            case("sleep"):
+              sleep = values[1];
+              break;
+
           }
 
         }
         console.log(responses);
-        Days.push(<Day date={date} mood={mood} caffeine={caffeine} exercise={exercise}/>);
+        Days.push(<Day key={i} date={date} mood={mood} caffeine={caffeine} exercise={exercise} sleep={sleep} meals={meals} />);
 
       }
       if(Days.length === 0){

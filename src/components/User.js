@@ -40,15 +40,15 @@ class User extends Component {
   render() {
       return (
         <div className="user">
-          <div class="dropdown">
+          <div className="dropdown">
             <button onClick={this.showMenu}>
               {this.state.username}
             </button>
             {
               this.state.showMenu 
               ? (
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <button class="dropdown-item" onClick={e => this.props.setStats(true)}>Statistics</button>
+                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button className="dropdown-item" onClick={e => this.props.setStats(true)}>Statistics</button>
 
             </div>
 
