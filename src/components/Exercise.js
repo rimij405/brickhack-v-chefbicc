@@ -9,7 +9,12 @@ class Exercise extends Component {
         return(
           <div className="main">
             <h1>How many Minutes of Exercise?</h1>
-            <input id="minutesOfExercise" type="text" onChange={e => this.props.minutesChanged({minutes: e.target.value})}/>
+            <select id="minutesOfExercise" type="text" onChange={e => this.props.minutesChanged({minutes: e.target.value})}>
+            <option> &lt; 30 </option>
+            <option>30-60</option>
+            <option>60-120</option>
+            <option>&gt; 120</option>
+            </select>
           </div>
         )
       }

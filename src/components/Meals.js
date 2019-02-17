@@ -9,7 +9,13 @@ class Meals extends Component {
         return(
           <div className="main">
             <h1>How Many Meals Did You Have Today??</h1>
-            <input id="meals" type="text" onChange={e => this.props.mealsChanged({meals: e.target.value})}/>
+            <select id="meals" type="text" onChange={e => this.props.mealsChanged({meals: e.target.value})}>
+            <option>0</option>     
+            <option>1</option>      
+            <option>2</option>  
+            <option>3</option>   
+            <option>3+</option>
+            </select>
           </div>
         )
       }

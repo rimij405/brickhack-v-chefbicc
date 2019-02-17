@@ -84,6 +84,7 @@ class Daily extends Component {
           <button onClick={e => this.setState({sleep: true})}>Sleep</button>
           <button onClick={e => this.setState({meals: true})}>Meals</button>
         </div>
+        <button>Submit</button>
       </div>
     );
   }
