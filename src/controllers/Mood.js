@@ -5,7 +5,7 @@ const models = require('../models');
 const MoodController = (flags) => {
   // Assign the models.
   const Models = models(flags);
-  const Mood = { Models };
+  const { Mood } = Models;
 
   // Debug message.
   if (flags.DEBUG) { console.log('Preparing Mood controller functions...'); }
@@ -54,7 +54,7 @@ const MoodController = (flags) => {
     // Construct the data.
     const moodData = {
       mood: req.body.mood,
-      owner: req.body.userID,
+      owner: req.body.userId,
     };
 
     // Construct instance.
@@ -141,7 +141,7 @@ const MoodController = (flags) => {
 
   const getMoods = (req, res) => {
     // Error check for missing user ID.    
-    if (!req.body || !req.body.userID) {
+    if (!req.query || !req.query.userId) {
       if (flags.DEBUG) {
         console.log('Client error. Missing user ID.');
       }
@@ -157,10 +157,10 @@ const MoodController = (flags) => {
     }
 
 
-    return Mood.MoodModel.findByOwner(req.body.userId, (err, docs) => {
+    return Mood.MoodModel.findByOwner(req.query.userId, (err, docs) => {
       if (err) {
         if (flags.DEBUG) {
-          console.log(`Client error: ${err}`);
+          console.log(`Client error: ${err} for ID: ${req.query.userId}`);
         }
 
         return res.status(400).json({
@@ -168,7 +168,7 @@ const MoodController = (flags) => {
           error: {
             code: flags.ERRORS.unknownError,
             name: 'Mood Query Error.',
-            message: `Error when querying for moods by owner ${req.body.userId}.`,
+            message: `Error when querying for moods by owner ${req.query.userId}.`,
           },
         });
       }

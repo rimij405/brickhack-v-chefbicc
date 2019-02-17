@@ -8,18 +8,10 @@ const mongoose = require('mongoose');
 
 // Set promise.
 mongoose.Promise = global.Promise;
+const convertId = mongoose.Types.ObjectId;
 
 // Create the model schema.
 const MoodSchema = new mongoose.Schema({
-
-  /* uuid: {
-    type: Number,
-    required: true,
-    unique: true
-  }, */
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -42,11 +34,34 @@ const MoodSchema = new mongoose.Schema({
 
 // Helper methods.
 
-// ......
+MoodSchema.statics.toAPI = (doc) => ({
+   _id: doc._id,
+   owner: doc.owner,
+   mood: doc.mood,
+   lastUpdated: doc.lastUpdated
+});
+
+MoodSchema.statics.findByOwner = (ownerId, callback) => {
+  const search = {
+    owner: convertId(ownerId),
+  };
+
+  return MoodModel.find(search).select('_id mood lastUpdated').exec(callback);
+};
+
+MoodSchema.statics.findByIdAndDelete = (moodId, callback) => {
+  const search = {
+    _id: convertId(moodId),
+  };
+
+  return MoodModel.deleteOne(search).exec(callback);
+};
 
 // Create the model.
 const MoodModel = mongoose.model('Mood', MoodSchema);
 
 // Export the model.
-module.exports.MoodModel = MoodModel;
-module.exports.MoodSchema = MoodSchema;
+module.exports = {
+  MoodModel,
+  MoodSchema
+};
