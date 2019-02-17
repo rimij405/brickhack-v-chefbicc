@@ -3,6 +3,7 @@ import UserProfile from '../UserProfile.js';
 import '../App.css';
 import Open from '../components/Open.js';
 import Home from '../components/Home.js';
+import {logIn} from '../actions/getActions';
 
 class Login extends Component {
   constructor(){
@@ -22,23 +23,20 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     }
+
+    logIn(post, this.checkResponse);
     //check to see if user and pass are valid combo on server
 
-    let response = fetch('https://jsonplaceholder.typicode.com/todos/1/posts', {
-      method: 'POST',
-      body: JSON.stringify(post)
-    }).then(function(response){return response.json()});
-    console.log(response);
+    
+  }
 
-    UserProfile.setName(this.state.username);
-    UserProfile.setDaily(false);
-
-    if (this.checkUsername(this.state.username) && this.checkPassword(this.state.password)) {
+  checkResponse(value){
+    console.log(value.ok);
+    if(value.ok === true){
       this.setState({
         submitted: true
-      });
+      })
     }
-    
   }
 
   checkUsername(value) {

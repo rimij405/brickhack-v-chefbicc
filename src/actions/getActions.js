@@ -21,7 +21,7 @@ export function checkUsername() {
     });
 }
 
-export function createUser(data) {
+export function createUser(data, callback) {
     return fetch('http://hmf.student.rit.edu:1080/createUser', {
         method: 'POST',
         headers: {
@@ -35,7 +35,28 @@ export function createUser(data) {
         body: JSON.stringify(data)
     }).then(res => {
         console.log(res);
-        return res;
+        return callback(res);
+    }).catch(err => {
+        console.log(err);
+        return err;
+    });
+}
+
+export function logIn(data, callback) {
+    return fetch('http://hmf.student.rit.edu:1080/logIn', {
+        method: 'POST',
+        headers: {
+                    'Access-Control-Allow-Credentials' : true,
+                    'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Allow-Methods':'GET',
+                    'Access-Control-Allow-Headers':'application/json',
+                    'Content-Type': 'application/json',
+                    'X-Debug-Mode': 'true'
+                },
+        body: JSON.stringify(data)
+    }).then(res => {
+        console.log(res);
+        return callback(res);
     }).catch(err => {
         console.log(err);
         return err;

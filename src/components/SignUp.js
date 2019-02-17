@@ -20,6 +20,8 @@ class SignUp extends Component {
       username: ''
     }
 
+    this.setState = this.setState.bind(this);
+    this.checkResponse = this.checkResponse.bind(this);
     this.handlePassChange = this.handlePassChange.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,10 +59,23 @@ class SignUp extends Component {
       password: this.state.password
     }
 
-    let response = createUser(post);
+    let response = createUser(post, this.checkResponse);
 
 
  }
+
+ checkResponse(value){
+    console.log(value.ok);
+    if(value.ok === true){
+      this.setState({
+        submitted: true
+      })
+    }else{
+      document.getElementById('usernameTaken').style.display = 'block';
+    }
+
+ }
+
 
  handleUsername(value) {
    if (value.length === 0){
@@ -126,6 +141,7 @@ class SignUp extends Component {
           <div className="error" id="emailError">Please enter a valid email</div>
           <input type="text" name="email" onChange={e => this.handleEmail(e.target.value)}/>
           <h3>Username</h3>
+          <div className="error" id="usernameTaken">Username Already Taken</div>
           <div className="error" id="usernameError">Please enter a username</div>
           <input type="text" name="username" onChange={e =>this.handleUsername(e.target.value)}/>
           <h3>Password</h3>
