@@ -77,7 +77,7 @@ export function createMood(data, callback) {
         body: JSON.stringify(data)
     }).then(res => {
         console.log(res);
-        return callback(res.json());
+        return callback(res);
     }).catch(err => {
         console.log(err);
         return err;
@@ -101,6 +101,7 @@ export function logIn(data, callback) {
         return callback(res.json());
     }).then((data) => {
           console.log(data);
+          return data;
       }).catch(err => {
         console.log(err);
         return err;

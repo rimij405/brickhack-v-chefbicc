@@ -19,27 +19,32 @@ class Day extends Component{
   }
 
   checkCaffeine(){
-    console.log(this.state.caffeine);
-    if(this.state.caffeine.length >= 0){
+    if(this.state.caffeine.length > 1){
       return(<p> Ounces of Caffeine: {this.state.caffeine} </p>);
     }
   }
 
   checkExercise(){
-    if(this.state.exercise){
+    if(this.state.exercise.length > 1){
       return(<p> Minutes of Exercise: {this.state.exercise}</p>);
     }
   }
 
   checkSleep(){
-    if(this.state.sleep != null){
+    if(this.state.sleep.length > 1){
       return(<p> Hours of Sleep: {this.state.sleep} </p>);
     }
   }
 
   checkMood(){
-    if(this.state.mood != null){
+    if(this.state.mood.length > 1){
       return(<p> Mood: {this.state.mood}</p>);
+    }
+  }
+
+  checkMeals(){
+    if(this.state.meals.length > 1) {
+      return (<p> Meals: {this.state.meals}</p>)
     }
   }
 
@@ -52,6 +57,7 @@ class Day extends Component{
         {this.checkCaffeine()}
         {this.checkExercise()}
         {this.checkSleep()}
+        {this.checkMeals()}
       </div>
     );
   }

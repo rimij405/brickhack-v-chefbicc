@@ -9,10 +9,12 @@ import Statistics from './Statistics';
 import {getMoods} from '../actions/getActions';
 import {withCookies, Cookies} from 'react-cookie';
 import { instanceOf } from 'prop-types';
+import App from '../App';
 
 let Days = [];
 
 class Home extends Component {
+
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
   };
@@ -22,6 +24,7 @@ class Home extends Component {
     super(props);
     const {cookies} = props;
     this.state = {
+      haveGottenMoods: false,
       username: this.props.username,
       daily: UserProfile.getDaily(),
       date: '',
@@ -33,6 +36,8 @@ class Home extends Component {
       stats: false,
       userProfile: this.props.userProfile,
       data: '',
+      gotMoods: false,
+      today: ''
 
     }
 
@@ -45,9 +50,15 @@ class Home extends Component {
 
 
   checkDailyForm(){
-    if(this.state.daily === false){
+      console.log("here");
       return(<Daily setDaily={this.setDaily} cookies={this.props.cookies} username={this.state.username}/>);
-    }
+  }
+
+  getMoods(){
+      UserProfile.setGotMood(true);
+
+      this.state.data = getMoods(this.props.cookies.get('id', {path:'/'}), this.checkResponse);
+      return null;
   }
 
   setDaily(value){
@@ -70,36 +81,42 @@ class Home extends Component {
       return (status === "ok");
     };
 
-    let date = '';
-    let mood = '';
-    let exercise = '';
-    let caffeine = '';
-    let sleep = '';
-    let meals = '';
+    if(Days.length > 1){
+      return;
+    }
+
+    console.log(value);
 
     value.then(function(response){
       let length = response.moods.length;
-      let Days = [length];
       for(let i=0; i<length; i++){
-        Days.push(<Day key={i} date={response.moods[i].lastUpdated} mood={response.moods[i].mood} caffeine={response.moods[i].ouncesOfCoffee} exercise={response.moods[i].hoursOfExercise} sleep={response.moods[i].hourso}
-                       meals={response.moods[i].numberofMeals} />);
-        console.log(Days[i]);
+        let data = {
+          date: response.moods[i].lastUpdated,
+          mood: response.moods[i].mood,
+          caffeine: response.moods[i].ouncesOfCoffee,
+          sleep: response.moods[i].hoursOfSleep,
+          meals: response.moods[i].numberOfMeals
+        }
+        Days.push(data);
       }
-
+        Days.reverse();
       _this.props.cookies.set('days', Days, {path: '/'});
       return Days;
-      console.log(Days);
+
 
 
     });
   }
 
-  createDays(data){
-    if(this.state.daily === true) {
-      var Days = [];
+  createDays(){
+      let data = Days;
+
+      var DaysDisplay = [];
       let date = '';
       let mood = '';
       let exercise = '';
+      let sleep = '';
+      let meals = '';
       let caffeine = '';
       let length = data.length;
       for (let i = 0; i < length; i++) {
@@ -115,30 +132,74 @@ class Home extends Component {
           switch (values[0]) {
             case("date"):
               console.log(values[1]);
-              date = values[1];
+              date = values[1].substring(0, values[1].length - 3);
+              if(this.state.today === date){
+                console.log("true");
+                UserProfile.setDaily(false);
+              }
               break;
 
             case("mood"):
-              mood = values[1];
+              values[1].replace("}","");
+              console.log(values[1]);
+              switch(values[1]){
+                default:
+                  mood = 'null';
+                  break;
+                case('0'):
+                  mood = 'happy';
+                  break;
+                case('1'):
+                  mood = 'neutral';
+                  break;
+                case('2'):
+                  mood = 'tired';
+                  break;
+                case('3'):
+                  mood = 'annoyed';
+                  break;
+                case('4'):
+                  mood = 'sad';
+                  break;
+                case('5'):
+                  mood = 'angry';
+                  break;
+              }
               break;
 
             case("caffeine"):
+              console.log(values[1]);
               caffeine = values[1];
               break;
 
             case("exercise"):
+              console.log(values[1]);
+              exercise = values[1];
+              break;
+
+            case("sleep"):
+              console.log(values[1]);
+              exercise = values[1];
+              break;
+
+            case("meals"):
+              console.log(values[1]);
               exercise = values[1];
               break;
           }
 
         }
         console.log(responses);
-        Days.push(<Day key={i} date={date} mood={mood} caffeine={caffeine} exercise={exercise}/>);
-
+        DaysDisplay.push(<Day key={i} date={date} mood={mood} caffeine={caffeine} exercise={exercise} sleep={sleep} meals={meals}/>);
+        caffeine = '';
+        sleep = '';
+        exercise = '';
+        meals = '';
+        mood = '';
       }
-      return Days;
-    }
-  }
+      console.log(DaysDisplay);
+    return(DaysDisplay);
+}
 
   displayHead(){
     if(this.state.daily === true) {
@@ -147,8 +208,8 @@ class Home extends Component {
   }
 
 
+  /*
 
-  render() {
     var body = [{
       date : "02/16/2019",
       mood : "happy",
@@ -171,23 +232,72 @@ class Home extends Component {
       sleep : "2"
     }
     ];
+   */
+/*
+  resetCookies(){
+    this.props.cookies.remove('id', { path: '/' });
+    this.props.cookies.remove('username', { path: '/' });
+    this.props.cookies.remove('daily', { path: '/' } );
+    this.props.cookies.remove('days',{path: '/'});
+    UserProfile.setName('');
+    UserProfile.setDaily(false);
+    UserProfile.setGotMood(false);
+    UserProfile.setId('');
+  }
+*/
+  setDailyForm(){
+    UserProfile.setDaily(false);
+    this.getMoods();
+    this.setState({
+      daily: false
+    });
+  }
 
-    var caffeine = [
-      ["Date", "Caffeine"],
-      ['02/16/2019', 8 ],
-      ['02/17/2019', 8 ],
-      ['02/18/2019', 16]
-    ];
+  setDay(value){
+    this.setState({
+      today: value
+    });
+  }
+
+  render() {
+    if(this.state.today === ''){
+      console.log("home");
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0!
+      var yyyy = today.getFullYear();
+
+      if(dd<10) {
+        dd = '0'+dd
+      }
+
+      if(mm<10) {
+        mm = '0'+mm
+      }
+
+      today = yyyy + '-' + mm + '-' + (dd + 1);
+      this.setDay(today);
+    }
+    console.log(!UserProfile.getGotMood());
+    if(!UserProfile.getGotMood()) {
+      console.log("mood");
+      this.getMoods();
+    }
     if(this.state.stats === true){
-      return(<Statistics body={body}/>)
-    }else {
+      return(<Statistics body={Days}/>)
+
+    }
+    if(!UserProfile.getDaily()){
+      return(<div className="home">{this.checkDailyForm()}</div>);
+    }
+    else {
       return (
         <div className="home">
-          <User setStats={this.setStats} username={this.state.username} data={body}/>
-          {this.checkDailyForm()}
+          <User setStats={this.setStats} username={UserProfile.getName()}/>
+          <button onClick={e => this.setDailyForm(false)}>Set Daily Form</button>
           <div className={"dayHolder"}>
             {this.displayHead()}
-            {this.createDays(body)}
+            {this.createDays()}
           </div>
 
 
@@ -197,4 +307,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withCookies(Home);

@@ -113,8 +113,14 @@ class Daily extends Component {
     }
     let data = {
       'userId': this.props.cookies.get('id'),
-      'mood': number
+      'mood': number,
+      'ouncesOfCoffee': this.state.caffeine,
+      'hoursOfExercise': this.state.exercise,
+      'hoursOfSleep': this.state.sleep,
+      'numberOfMeals': this.state.meals
+
     }
+    /*
     if (this.state.caffeine !== false) {
       data += {'ouncesOfCoffee': this.state.caffeine}
     }
@@ -128,10 +134,14 @@ class Daily extends Component {
     if (this.state.meals !== false) {
       data+={'numberOfMeals': this.state.meals}
     }
+    */
+
+
 
 
     createMood(data, this.getData);
-    this.props.setDaily(true);
+    UserProfile.setDaily(true);
+    this.props.cookies.set('daily', true, {path: '/'});
   }
 
   getData(data) {

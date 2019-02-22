@@ -93,7 +93,9 @@ class SignUp extends Component {
         });
         console.log(payload.user._id);
         _this.props.cookies.set('id', payload.user._id, {path: '/'});
+        _this.props.cookies.set('username', this.state.username, {path: '/'});
         UserProfile.setId(payload.user._id);
+        UserProfile.setGotMood(false);
         console.log(UserProfile.getId());
       }
       else

@@ -32,10 +32,19 @@ class Statistics extends Component {
           if(values[0] === "caffeine"){
             values[1] = values[1].replace(" oz", "");
           }
+          if(values[0] === "exercise"){
+            values[1] = values[1].substring(0, 1);
+            console.log(values[1]);
+          }
           Caffeine.push(parseInt(values[1]));
         }
+
         if(values[0] === 'date'){
-          Dates.push(values[1]);
+          Dates.push(values[1].substring(0, values[1].length - 3));
+        }
+
+        if(values[0] === null){
+          return null;
         }
 
       }
@@ -48,7 +57,7 @@ class Statistics extends Component {
     }
 
     console.log(Data);
-    if(Data.length === 0){
+    if(Data === null){
       return null;
     }
 
@@ -76,33 +85,35 @@ class Statistics extends Component {
         values[0] = values[0].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
         values[1] = values[1].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
 
+        console.log(values[1]);
+        values[1].replace("}","");
         switch(values[1]) {
-          case('neutral'):
+          case('1'):
             neutralCount++;
             break;
 
 
-          case('angry'):
+          case('5'):
             angryCount++;
             break;
 
 
-          case('tired'):
+          case('2'):
             tiredCount++;
             break;
 
 
-          case('annoyed'):
+          case('3'):
             annoyedCount++;
             break;
 
 
-          case('sad'):
+          case('4'):
             sadCount++;
             break;
 
 
-          case('happy'):
+          case('0'):
             happyCount++;
             break;
         }
@@ -127,7 +138,7 @@ class Statistics extends Component {
 
   render(){
     if(this.state.goBack === true){
-      return <Home username={UserProfile.getName()}/>
+      return <Home goBack={this.state.goBack} username={UserProfile.getName()}/>
     }
     return(
 
@@ -137,7 +148,7 @@ class Statistics extends Component {
         {this.createTable(this.props.body, "exercise")}
         {this.createTable(this.props.body, "sleep")}
         {this.createPieChart(this.props.body, "mood")}
-        <button onClick={e => this.setState({goBack: true}) }> Go Back </button>
+        <button onClick={e => this.setState({goBack: true})}> Go Back </button>
       </div>
     );
   }

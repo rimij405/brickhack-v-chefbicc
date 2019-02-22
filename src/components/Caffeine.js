@@ -9,7 +9,7 @@ class Caffeine extends Component{
     return(
       <div className="question">
         <h1>How many Ounces of Caffeine?</h1>
-        <select id="cupsOfCoffee" type="text" onChange={e => this.props.cupsChanged({cups: e.target.value})}>
+        <select id="cupsOfCoffee" type="text" onChange={e => this.props.cupsChanged({caffeine: e.target.value})}>
         <option>8 oz</option>
         <option>16 oz</option>
         <option>20 oz</option>

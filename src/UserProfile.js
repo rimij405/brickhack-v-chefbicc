@@ -3,6 +3,11 @@ var UserProfile = (function() {
   var full_name = "";
   var daily = false;
   var id = '';
+  var gotMood = false;
+
+  var getGotMood = function(){
+    return gotMood;
+  }
 
   var getId = function() {
     return id;
@@ -10,6 +15,10 @@ var UserProfile = (function() {
 
   var setId = function(new_id) {
     id = new_id;
+  }
+
+  var setGotMood = function(mood){
+    gotMood = mood;
   }
 
   var getName = function() {
@@ -35,6 +44,8 @@ var UserProfile = (function() {
     setDaily: setDaily,
     getId: getId,
     setId: setId,
+    setGotMood: setGotMood,
+    getGotMood: getGotMood,
   }
 
 })();

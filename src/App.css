@@ -160,3 +160,8 @@ button{
   align-items: center;
   flex-direction: column;
 }
+
+.logo{
+  width: 30%;
+  hieght: auto;
+}
