@@ -26,7 +26,7 @@ class Home extends Component {
     this.state = {
       haveGottenMoods: false,
       username: this.props.username,
-      daily: UserProfile.getDaily(),
+      daily: '',
       date: '',
       mood: '',
       caffeine: '',
@@ -50,7 +50,6 @@ class Home extends Component {
 
 
   checkDailyForm(){
-      console.log("here");
       return(<Daily setDaily={this.setDaily} cookies={this.props.cookies} username={this.state.username}/>);
   }
 
@@ -85,7 +84,6 @@ class Home extends Component {
       return;
     }
 
-    console.log(value);
 
     value.then(function(response){
       let length = response.moods.length;
@@ -124,24 +122,19 @@ class Home extends Component {
         let responses = response.split(",");
         for (let j = 0; j < responses.length; j++) {
           let values = responses[j].split(":");
-          console.log(values);
           values[0] = values[0].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
           values[1] = values[1].replace("\"", "").replace("{", "").replace("}", "").replace("\"", "");
 
-          console.log(values[0]);
           switch (values[0]) {
             case("date"):
-              console.log(values[1]);
               date = values[1].substring(0, values[1].length - 3);
-              if(this.state.today === date){
-                console.log("true");
-                UserProfile.setDaily(false);
+              if((this.state.today === date) && (this.state.daily === false)){
+                this.setDaily(true)
               }
               break;
 
             case("mood"):
               values[1].replace("}","");
-              console.log(values[1]);
               switch(values[1]){
                 default:
                   mood = 'null';
@@ -168,28 +161,23 @@ class Home extends Component {
               break;
 
             case("caffeine"):
-              console.log(values[1]);
               caffeine = values[1];
               break;
 
             case("exercise"):
-              console.log(values[1]);
               exercise = values[1];
               break;
 
             case("sleep"):
-              console.log(values[1]);
               exercise = values[1];
               break;
 
             case("meals"):
-              console.log(values[1]);
               exercise = values[1];
               break;
           }
 
         }
-        console.log(responses);
         DaysDisplay.push(<Day key={i} date={date} mood={mood} caffeine={caffeine} exercise={exercise} sleep={sleep} meals={meals}/>);
         caffeine = '';
         sleep = '';
@@ -197,7 +185,6 @@ class Home extends Component {
         meals = '';
         mood = '';
       }
-      console.log(DaysDisplay);
     return(DaysDisplay);
 }
 
@@ -261,7 +248,6 @@ class Home extends Component {
 
   render() {
     if(this.state.today === ''){
-      console.log("home");
       var today = new Date();
       var dd = today.getDate();
       var mm = today.getMonth()+1; //January is 0!
@@ -275,26 +261,24 @@ class Home extends Component {
         mm = '0'+mm
       }
 
-      today = yyyy + '-' + mm + '-' + (dd + 1);
+      today = yyyy + '-' + mm + '-' + (dd);
       this.setDay(today);
     }
-    console.log(!UserProfile.getGotMood());
     if(!UserProfile.getGotMood()) {
-      console.log("mood");
       this.getMoods();
     }
     if(this.state.stats === true){
       return(<Statistics body={Days}/>)
 
     }
-    if(!UserProfile.getDaily()){
+    if(this.state.daily === false){
       return(<div className="home">{this.checkDailyForm()}</div>);
     }
     else {
       return (
         <div className="home">
           <User setStats={this.setStats} username={UserProfile.getName()}/>
-          <button onClick={e => this.setDailyForm(false)}>Set Daily Form</button>
+          <button className="dailyButton" onClick={e => this.setDailyForm(false)}>Set Daily Form</button>
           <div className={"dayHolder"}>
             {this.displayHead()}
             {this.createDays()}

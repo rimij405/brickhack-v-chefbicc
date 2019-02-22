@@ -141,6 +141,7 @@ class Daily extends Component {
 
     createMood(data, this.getData);
     UserProfile.setDaily(true);
+    this.props.setDaily(true);
     this.props.cookies.set('daily', true, {path: '/'});
   }
 

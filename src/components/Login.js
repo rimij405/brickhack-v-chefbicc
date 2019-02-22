@@ -49,7 +49,6 @@ class Login extends Component {
     };
 
     value.then(function(response){
-      console.log(response);
       return response;
     }).then(function(blob){
       let payload = blob;
@@ -60,12 +59,10 @@ class Login extends Component {
         _this.setState({
           submitted: true
         });
-        console.log(payload.user._id);
         _this.props.cookies.set('id', payload.user._id, {path: '/'});
         UserProfile.setId(payload.user._id);
         UserProfile.setGotMood(false);
-        console.log(UserProfile.getId());
-      } 
+      }
       else
       {
         document.getElementById('loginError').style.display = 'block';

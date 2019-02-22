@@ -86,7 +86,7 @@ input{
 .user{
   position: fixed;
   top: 0px;
-  right: 1em;
+  right: 0px;
   font-size: 2em;
 }
 
@@ -108,7 +108,16 @@ select {
   background-color: lightgray;
 }
 
+hr{
+  color: white;
+  background-color: white;
+  border-style: solid;
+  height: 1px;
+}
+
 .day{
+  background-image: linear-gradient(#404040,#4d4d4d);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
   width: 35vw;
   padding: 10px;
   margin: 10px;
@@ -123,11 +132,12 @@ select {
 .dayHolder{
   margin: auto;
   width: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 
 .daily{
   display: flex;
-
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -159,6 +169,12 @@ button{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.dailyButton{
+  position: fixed;
+  left:0px;
+  top:0px;
 }
 
 .logo{
